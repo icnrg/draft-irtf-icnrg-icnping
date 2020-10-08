@@ -185,11 +185,7 @@
             <li>Round Trip Time (RTT): The time between sending a request for a specific piece of named data and receiving the corresponding piece of named data.</li>
             <li>Sender: An entity that sends a request for named data or a piece of named data.</li>
             <li>Name of a sender: An alias of producer's name.</li>
-<<<<<<< HEAD
-            <li>Border forwarder: The forwarder where a producer's name is directly routable (i.e., is present in the FIB of the forwarder).</li>
-=======
             <li>Border forwarder: The forwarder that is the border of a network region where a producer's name is directly routable (i.e., the producer's name is present in the FIB of forwarders within this network region).</li>
->>>>>>> 897fa78898e6c382dce2d979367879d5340014c6
         </ul>
       </section>
     </section>
