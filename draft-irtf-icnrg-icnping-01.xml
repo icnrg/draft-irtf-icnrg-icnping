@@ -126,13 +126,8 @@
         <!-- uri and facsimile elements may also be added -->
       </address>
     </author>
-    <date month="October" year="2020"/>
-    <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
-         in the current day for you. If only the current year is specified, xml2rfc will fill
-	 in the current day and month for you. If the year is not the current one, it is
-	 necessary to specify at least a month (xml2rfc assumes day="1" if not specified for the
-	 purpose of calculating the expiry date).  With drafts it is normally sufficient to
-	 specify just the year. -->
+    <date year="2020"/>
+
 
     <!-- Meta-data Declarations -->
 
@@ -150,56 +145,58 @@
          keywords will be used for the search engine. -->
 
     <abstract>
-      <t>This document presents the design of an ICN Ping protocol. It includes the operations both on
-      the client and the forwarder side.</t>
+      <t>This document presents the design of an ICN Ping protocol. It includes the operations of both the client and the forwarder.</t>
     </abstract>
   </front>
+  
   <middle>
     <section numbered="true" toc="default">
       <name>Introduction</name>
-      <t>Determining data plane reachability to a destination and taking
+      <t>Ascertaining data plane reachability to a destination and taking
 	coarse performance measurements of round trip time are fundamental
 	facilities for network administration and troubleshooting.  In IP,
 	where routing and forwarding are based on IP addresses, ICMP echo
 	and ICMP echo response are the protocol mechanisms used for this
 	purpose, generally exercised through the familiar ping utility. In
 	ICN, where routing and forwarding are based on name prefixes, the
-	ability to determine reachability of names is required.</t>
+	ability to ascertain reachability of names is required.</t>
       <t> This document proposes protocol mechanisms for a ping equivalent in
-	ICN (CCNx and NDN) networks. A non-normative appendix suggests useful properties for an ICN
+	ICN (<xref target="RFC8609">CCNx</xref> and <xref target="NDNTLV">NDN</xref>) networks. A non-normative appendix suggests useful properties for an ICN
 	ping client application, analogous to IP ping, that originates echo requests
-	and process echo replies.</t>
+	and processes echo replies.</t>
+
       <section numbered="true" toc="default">
         <name>Requirements Language</name>
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
         "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
         document are to be interpreted as described in <xref target="RFC2119" format="default"/>.</t>
       </section>
+
       <section numbered="true" toc="default">
         <name>Terminology</name>
         <t>To aid the understanding of readers, we define the following terms:</t>
         <ul spacing="normal">
             <li>Content object: A network-level packet that carries payload, uniquely identified
-            by a name, and is directly secured <xref target="TERMINOLOGY" format="default"/>.</li>
+            by a name, and is directly secured <xref target="RFC8793" format="default"/>.</li>
             <li>Producer: An ICN entity that creates Data packets and makes them available
-            for retrieval <xref target="TERMINOLOGY" format="default"/>.</li>
+            for retrieval <xref target="RFC8793" format="default"/>.</li>
             <li>Producer's name: The name prefix that a request must carry in order to reach a producer over an ICN network.</li>
-            <li>Named Data: An alias of a content object.</li>
+            <li>Named Data: A synonym for a content object.</li>
             <li>Round Trip Time (RTT): The time between sending a request for a specific piece of named data and receiving the corresponding piece of named data.</li>
             <li>Sender: An entity that sends a request for named data or a piece of named data.</li>
             <li>Name of a sender: An alias of producer's name.</li>
-            <li>Border forwarder: The forwarder where a producer's name is directly routable (i.e., is present in the FIB of forwarders).</li>
+            <li>Border forwarder: The forwarder where a producer's name is directly routable (i.e., is present in the FIB of the forwarder).</li>
         </ul>
       </section>
     </section>
     <section numbered="true" toc="default">
       <name>Background on IP-Based Ping Operation</name>
-      <t>In IP-based ping, an IP address is specified, either directly, or via
+      <t>In IP-based ping, an IP address is specified by the user either directly, or via
             translation of a domain name through DNS. The ping client application
             sends a number of ICMP Echo Request packets with the specified IP
             address as the IP destination address and an IP address from the client's host
             as the IP source address.</t>
-      <t>An ICMP Echo Request is forwarded across
+      <t>Each ICMP Echo Request is forwarded across
             the network based on its destination IP address. If it eventually reaches the
             destination, the destination responds by sending back an ICMP Echo Reply
             packet to the IP source address from the ICMP Echo Request.</t>
@@ -210,27 +207,20 @@
     </section>
     <section numbered="true" toc="default">
       <name>Ping Functionality Challenges and Opportunities in ICN</name>
-      <t> In ICN,
-      the communication paradigm is based exclusively on named
+      <t> In ICN, the communication paradigm is based exclusively on named
       objects. An Interest is forwarded across the network based on the name prefix that it carries.
-      Eventually, it retrieves a content object either from a producer
+      Eventually, a content object is retrieved either from a producer
       application or some forwarder's Content Store (CS).</t>
-      <t>IP-based ping was built as an add-on measurement and debugging tool on top of an already existing
-      network architecture. In ICN, we have the opportunity to incorporate diagnostic
+      <t>IP-based ping was built as an add-on measurement and debugging tool on top of an already existing network architecture. In ICN, we have the opportunity to incorporate diagnostic
       mechanisms directly in the network layer protocol, and hopefully provide more powerful
       diagnostic capability than can be realized through the layered ICMP Echo approach.</t>
       <t>An ICN network differs from an IP network in at least 4 important ways:</t>
       <ul spacing="normal">
         <li>IP identifies interfaces to an IP network with a fixed-length
-              number, and delivers IP packets to one or more interfaces. ICN
+              address, and delivers IP packets to one or more of these interfaces. ICN
               identifies units of data in the network with a variable length name
-              consisting of a hierarchical list of components.</li>
-        <li>An IP-based network depends on the IP packets having source IP
-	      addresses that are used as
-              the destination address for replies. On the other hand, ICN Interests do
-	      not have source addresses and they are forwarded
-              based on names, which do not refer to a unique end-point. Data packets
-	      follow the reverse path of the Interests based on hop-by-hop state
+              consisting of a hierarchical list of name components.</li>
+        <li>An IP-based network depends on the IP packets having source IP  addresses that are used as              the destination address for replies. On the other hand, ICN Interests do not have source addresses and they are forwarded  based on names, which do not refer to a unique end-point. Data packets follow the reverse path of the Interests based on hop-by-hop state
 	      created during Interest forwarding.</li>
         <li>An IP network supports multi-path, single destination, stateless packet
               forwarding and delivery via unicast, a limited form of
@@ -244,23 +234,24 @@
               paths, and may be forwarded to different data sources (e.g., end-node
               applications, in-network storage) holding a copy of the
               requested unit of data.  This can lead to a significant variance in
-              round-trip times, which might not be desirable in the case of a network
+              round-trip times, which while resulting in a more robust overall forwarding architecture, has implications for a network
               troubleshooting mechanism like ping.</li>
         <li>In the case of multiple Interests with the same name arriving
               at a forwarder, a number of Interests may be aggregated in a common Pending
-              Interest Table (PIT) entry. Depending on the lifetime of a PIT entry,
+              Interest Table (PIT) entry and only one of them forwarded onward. Depending on the lifetime of a PIT entry,
               the round-trip time an Interest-Data exchange might significantly vary
               (e.g., it might be shorter than the full round-trip time to reach the
               original content producer). To this end, the round-trip time experienced
               by consumers might also vary.</li>
       </ul>
+      
       <t>These differences introduce new challenges, new opportunities and new
       requirements in the design of an ICN ping protocol. Following this communication
       model, a ping client should be able to express ping echo requests
       with some name prefix and receive responses.</t>
       <t>Our goals are the following:</t>
       <ul spacing="normal">
-        <li>Test the reachability and the operation of an ICN forwarder.</li>
+        <li>Test the reachability and the operational state of an ICN forwarder.</li>
         <li>Test the reachability of a producer or a data repository (in the sense of whether
 	Interests for a prefix that it serves can be forwarded to it) and discover the
 	forwarder with local connectivity to (an instance of) this producer or repository.</li>
@@ -268,12 +259,14 @@
 	and, if so, return the administrative name of the corresponding forwarder.</li>
         <li>Perform some simple network performance measurements.</li>
       </ul>
+      
       <t>To this end, a ping name can represent:</t>
       <ul spacing="normal">
         <li>An administrative name that has been assigned to a forwarder.</li>
         <li>A name that includes an application's namespace as a prefix.</li>
         <li>A named object that might reside in some in-network storage.</li>
       </ul>
+      
       <t>In order to provide stable and reliable diagnostics, it is desirable that the
       packet encoding of a ping echo request enable the forwarders to
       distinguish a ping from a normal Interest, while also allowing for
@@ -281,27 +274,31 @@
       Interest packet. In the same way, the encoding of a ping echo reply
       should allow for forwarder processing as close as possible to that used for data
       packets.</t>
+      
       <t>The ping protocol should also enable relatively robust round-trip time
       measurements. To this end, it is important to have a mechanism to steer
-      consecutive ping echo requests for the same name towards an individual path
-      <xref target="PATHSTEERING" format="default"/>.</t>
-      <t>It is also important, in the case of ping echo requests for the same name from different sources,
-      to have a mechanism to avoid aggregating those requests in the PIT. To this end, we need
-      some encoding in the ping echo requests
+      consecutive ping echo requests for the same name towards an individual path. Such a capability was initially published in  <xref target="PATHSTEERING" format="default"/> and has been specified for CCNx in <xref target="I-D.oran-icnrg-pathsteering"/>.</t>
+      
+      <t>It is also important, in the case of ping echo requests for the same name from different sources to have a mechanism to avoid those requests being aggregated in the PIT. To this end, we need some encoding in the ping echo requests
       to make each request for a common name unique, hence avoiding PIT aggregation and
       further enabling the exact match of a response with a particular ping packet.</t>
+      
       <t>Note that ICN ping is a protocol that estimates the perceived RTT based on a single request-reply exchange. A measurement application is needed to make proper use of this protocol to explore multiple paths and compute various statistics, such as the variance, average, maximum and minimum RTT values as well as loss rates.</t>
     </section>
+    
     <section numbered="true" toc="default">
       <name>ICN Ping Echo CCNx Packet Formats</name>
       <t>In this section, we describe the Echo Packet Format according to the
-      CCNx packet format <xref target="CCNMessages" format="default"/>, where
+      CCNx packet format <xref target="RFC8569" format="default"/>, where
       messages exist within outermost containments (packets).
-      Specifically, we propose two types
+      Specifically, we specify two types
       of ping packets, an echo request and an echo reply packet type.</t>
       <section numbered="true" toc="default">
         <name>ICN Ping Echo Request CCNx Packet Format</name>
         <t>The format of the ping echo request packet is presented below:</t>
+        
+        <figure align="center" anchor="ping-packet">
+        <name>Echo Request CCNx Packet Format</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 
@@ -315,7 +312,7 @@
  |               |               |               |               |
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /                       PathSteering TLV			 /
+ /                   PathSteering TLV                            /
  /                                                               /
  +---------------+---------------+---------------+---------------+
  |                                                               |
@@ -324,36 +321,21 @@
  +---------------+---------------+---------------+---------------+
 
             ]]></artwork>
-        <t>Echo Request CCNx Packet Format</t>
+        <postamble></postamble>
+        </figure>
+        
         <t>The existing packet header fields have the same definition as the header fields of
-       a CCNx Interest packet. The value of the packet type field is Echo Request. The exact numeric
-       value of this field type is to be assigned in the Packet Type IANA Registry for CCNx
-       (see section 4.1 of <xref target="CCNMessages" format="default"/>.</t>
-        <t>Compared to the typical format of a CCNx packet header
-      <xref target="CCNMessages" format="default"/>, there is a new
-      optional fixed header TLV added to the packet header:</t>
-        <ul spacing="normal">
-          <li>A PathSteering hop-by-hop header TLV, which is constructed hop-by-hop
-	 in the echo reply and included in the echo request to steer consecutive echo requests
-	 expressed by a ping client towards a common forwarding path. An example of such a scheme
-	 is presented in <xref target="PATHSTEERING" format="default"/>.</li>
-        </ul>
-        <artwork align="left" name="" type="" alt=""><![CDATA[
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+       a CCNx Interest packet. The value of the packet type field is <em>Echo Request</em>. The exact numeric value of this field type is to be assigned in the Packet Type IANA Registry for CCNx
+       (see section 4.1 of <xref target="RFC8569" format="default"/>.</t>
+        
+        <t>Compared to the typical format of a CCNx packet header from <xref target="RFC8569" format="default"/>, in order to enable path steering of Echo Requests, there is an  optional fixed header Pathsteering TLV as specified in <xref target="I-D.oran-icnrg-pathsteering"/> added to the packet header:</t>
 
- +---------------+---------------+---------------+---------------+
- |                               |                               |
- |      PathSteering_Type        |      PathSteering_Length      |
- |                               |                               |
- +---------------+---------------+---------------+---------------+
- |                                                               |
- |			PathSteering_Value                       |
- |                                                               |
- +---------------+---------------+---------------+---------------+
 
-            ]]></artwork>
-        <t>PathSteering TLV</t>
-        <t>The message of an echo request is presented below:</t>
+        <t>The message format of an echo request is presented below:</t>
+        
+        <figure align="center" anchor="echo-request">
+        <name>Echo Request Message Format</name>
+        
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 
@@ -367,18 +349,21 @@
  |                                                               |
  +---------------+---------------+---------------+---------------+
 
-
             ]]></artwork>
-        <t>Echo Request Message Format</t>
+       </figure>
+       
         <t>The echo request message is of type Interest in order to leverage
        the Interest forwarding behavior provided by the network. The Name TLV
-       has the structure described in <xref target="CCNMessages" format="default"/>.
+       has the structure described in <xref target="RFC8609" format="default"/>.
        The name consists of the prefix that we would like to ping appended with
        a nonce typed name component as its last component. The exact numeric
        value of this field type is to be assigned in the Name Component Type IANA Registry for CCNx
-       (see section 4.5 of <xref target="CCNMessages" format="default"/>. The value of this TLV is a 64-bit nonce.
+       (see section 4.5 of <xref target="RFC8609" format="default"/>. The value of this TLV is a 64-bit nonce.
        The purpose of the nonce is to avoid Interest aggregation and allow client matching of
        replies with requests. As described below, the nonce is ignored for CS checking.</t>
+       
+       <figure align="center">
+       <name>Nonce Name component TLV for Echo Request messages</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 
@@ -395,16 +380,18 @@
  |                                                               |
  +---------------+---------------+---------------+---------------+
 
-
-
             ]]></artwork>
-        <t>Nonce Typed Name Component TLV</t>
+      </figure>
+      
       </section>
       <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
 
     <section anchor="CCNxReply" numbered="true" toc="default">
         <name>Ping Echo Reply CCNx Packet Format</name>
         <t>The format of a ping echo reply packet is presented below:</t>
+        
+        <figure align="center">
+        <name>Echo Reply CCNx Packet Format</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 
@@ -418,7 +405,7 @@
  |                               |               |               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |                        PathSteering TLV			 |
+ |                        PathSteering TLV		            	 |
  |                                                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
@@ -428,17 +415,22 @@
 
 
             ]]></artwork>
-        <t>Echo Reply CCNx Packet Format</t>
+        </figure>
+        
         <t>The header of an echo reply consists of the header fields of a CCNx Content
        Object and a hop-by-hop PathSteering TLV. The value of the packet type
        field is Echo Reply. The exact numeric value of this field type is to be assigned
-       in the Packet Type IANA Registry for CCNx
-       (see section 4.1 of <xref target="CCNMessages" format="default"/>.
-       The PathSteering header TLV is as defined for the echo request packet.</t>
+       in the Packet Type IANA Registry for CCNx (see section 4.1 of <xref target="RFC8569" format="default"/>.
+       The PathSteering header TLV from <xref target="I-D.oran-icnrg-pathsteering"/> 
+       is as defined for the echo request packet.</t>
+       
         <t>A ping echo reply message is of type Content Object, contains a Name TLV
        (name of the corresponding echo request), a PayloadType TLV and an
        ExpiryTime TLV with a value of 0 to indicate that echo replies must
        not be returned from network caches.</t>
+       
+       <figure align="center">
+       <name>Echo Reply Message Format</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 
@@ -460,9 +452,9 @@
  |                                                               |
  +---------------+---------------+---------------+---------------+
 
-
             ]]></artwork>
-        <t>Echo Reply Message Format</t>
+        </figure>
+    
         <t>The PayloadType TLV is presented below. It is of type T_PAYLOADTYPE_DATA, and
        the data schema consists of 3 TLVs: 1) the name of the sender of this reply
        (with the same structure as a CCNx Name TLV), 2) the sender's signature of
@@ -470,6 +462,9 @@
        3) a TLV with a return code to indicate what led to the generation of this reply
        (i.e., existence of a local application, a CS hit or a match with a forwarder's
        administrative name as specified in <xref target="forwarder" format="default"/>).</t>
+       
+       <figure align="center">
+       <name>Echo Reply Message Format</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 
@@ -493,11 +488,12 @@
 
 
             ]]></artwork>
-        <t>Echo Reply Message Format</t>
+        </figure>
+
         <t>The goal of including the name of the sender in the echo reply is to enable the
       user to reach this entity directly to ask for further management/administrative
       information using generic Interest-Data exchanges or by employing a more comprehensive
-      management tool such as CCNInfo <xref target="CCNInfo" format="default"/>
+      management tool such as <xref target="I-D.irtf-icnrg-ccninfo" format="default">CCNInfo</xref> 
       after a successful verification of the sender's name.</t>
         <t>The structure of the Echo Reply Code TLV is presented below (16-bit value).
       The defined values are the following:</t>
@@ -506,6 +502,9 @@
           <li>2: Indicates that the target name matched a prefix served by an application.</li>
           <li>3: Indicates that the target name matched the name of an object in a forwarder's CS.</li>
         </ul>
+        
+        <figure align="center">
+        <name>Echo Reply Code TLV</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 
@@ -518,12 +517,11 @@
  |                      Echo_Reply_Code_Value                    |
  +---------------+---------------+---------------+---------------+
 
-
-
             ]]></artwork>
-        <t>Echo Reply Code TLV</t>
+        </figure>
       </section>
     </section>
+    
     <section numbered="true" toc="default">
       <name>ICN Ping Echo NDN Packet Formats</name>
       <t>In this section, we present the ICN Ping Echo Request and Reply Format according to the NDN packet specification
@@ -531,6 +529,9 @@
       <section numbered="true" toc="default">
         <name>ICN Ping Echo Request NDN Packet Format</name>
         <t>An echo request is encoded as an NDN Interest packet. Its format is the following:</t>
+        
+        <figure align="center">
+        <name>Echo Request NDN Packet Format</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
 	EchoRequest ::= INTEREST-TYPE TLV-LENGTH
 	                  Name
@@ -538,22 +539,31 @@
 			  Nonce
 			  Parameters?
 	        ]]></artwork>
-        <t>Echo Request NDN Packet Format</t>
+        </figure>
+        
         <t>The name field of an echo request consists of the name prefix to be pinged, a nonce value (it can be the
       value of the Nonce field) and the suffix "ping" to denote that this Interest is a ping request.</t>
-        <t>The "Paremeters" field of the Request contains the following PathSteering TLV:</t>
+        <t>The "Parameters" field of the Request contains the following PathSteering TLV:</t>
+        
+        <figure align="center">
+        <name>PathSteering TLV</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
 	PathSteering TLV ::= PATHSTEERING-TLV-TYPE TLV-LENGTH BYTE{8}
 	]]></artwork>
-        <t>PathSteering TLV</t>
+        </figure>
+        
         <t>Since the NDN packet format does not provide a mechanism to prevent the network from caching specific
       data packets, we use the MustBeFresh selector for echo requests (in combination with a Freshness Period
       TLV of value 0 for echo replies) to avoid fetching cached echo replies with an expired freshness period
       <xref target="REALTIME" format="default"/>.</t>
       </section>
+      
       <section numbered="true" toc="default">
         <name>Ping Echo Reply NDN Packet Format</name>
         <t>An echo reply is encoded as an NDN Data packet. Its format is the following:</t>
+        
+        <figure align="center">
+        <name>Echo Reply NDN Packet Format</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
 	EchoReply ::= DATA-TLV TLV-LENGTH
 	                PathSteering TLV
@@ -562,18 +572,23 @@
                         Content
                         Signature
 	        ]]></artwork>
-        <t>Echo Reply NDN Packet Format</t>
+        </figure>
+        
         <t>Compared to the format of a regular NDN Data packet, an echo reply contains a PathSteering TLV field,
       which is not included in the security envelope, since it might be modified in a hop-by-hop fashion by
       the forwarders along the reverse path.</t>
         <t>The name of an echo reply is the name of the corresponding echo request, while the format of the MetaInfo field
       is the following:</t>
+      
+      <figure align="center">
+      <name>MetaInfo TLV</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
       MetaInfo ::= META-INFO-TYPE TLV-LENGTH
                      ContentType
                      FreshnessPeriod
 	             ]]></artwork>
-        <t>MetaInfo TLV</t>
+        </figure>
+        
         <t>The value of the ContentType TLV is 0. The same applies to the value of the
       FreshnessPeriod TLV, so that the replies are treated as stale data as soon as
       they are received by a forwarder.</t>
@@ -584,15 +599,20 @@
       signature of the data producer.</t>
         <t>The Echo Reply Code TLV format is the following (with the values specified in
       <xref target="CCNxReply" format="default"/>):</t>
+      
+      <figure align="center">
+      <name>Echo Reply Code TLV</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
 	EchoReplyCode ::= ECHOREPLYCODE-TLV-TYPE TLV-LENGTH BYTE{2}
 	]]></artwork>
-        <t>Echo Reply Code TLV</t>
+        </figure>
+        
       </section>
     </section>
+
     <section anchor="forwarder" numbered="true" toc="default">
       <name>Forwarder Handling</name>
-      <t>We present the workflow of the forwarder's operation in Figure 1.
+      <t>We present the workflow of the forwarder's operation in <xref target="forwarder-operation"/>.
          When a forwarder receives an echo request, it first extracts the message's
 	base name (i.e., the request name with the Nonce name component excluded and the suffix
 	"ping" in the case of an echo request with the NDN packet format).</t>
@@ -629,7 +649,8 @@
 	by each forwarder to encode its next-hop choice. When included in subsequent
 	echo requests, this  pathSteering TLV allows the forwarders to steer
 	the echo requests along the same path.</t>
-      <figure title="Forwarder Operation">
+      <figure align="center" anchor="forwarder-operation">
+      <name>Forwarder Operation</name>
             <artwork><![CDATA[
 
       ------------------------------------------------------------------------
@@ -670,6 +691,7 @@
             ]]></artwork>
           </figure>
     </section>
+    
     <section anchor="local" numbered="true" toc="default">
       <name>Protocol Operation For Locally-Scoped Namespaces</name>
       <t>In this section, we elaborate on 2 alternative design approaches in cases that
@@ -705,14 +727,15 @@
     </section>
     <section numbered="true" toc="default">
       <name>Security Considerations</name>
-      <t>A reflection attack could in the case of an echo reply with the CCNx packet format
-      if a compromised forwarder includes in the reply the name of a victim forwarder.
-      This could redirect the future administrative traffic
+      <t>A reflection attack could be mounted by a compromised forwarder in the case of an echo reply with the CCNx packet format
+      if that forwarder includes in the reply the name of a victim forwarder.
+      This could convince a client to direct the future administrative traffic
       towards the victim. To foil such reflection attacks, the forwarder that generates a reply
       must sign the name included in the payload. In this way, the client is able to verify that the
       included name is legitimate and refers to the forwarder that generated the reply.
       Alternatively, the forwarder could include in the reply payload their routable
       prefix(es) encoded as a signed NDN Link Object <xref target="SNAMP" format="default"/>.</t>
+      
       <t>Interest flooding attack amplification is possible in the case of the second approach to deal
       with locally-scoped namespaces described in <xref target="local" format="default"/>. To eliminate such amplification,
       a border forwarder will have to maintain extra state in order to prepend the correct routable prefix
@@ -720,63 +743,48 @@
       multiple network regions (reachable under different prefixes) or a network region attached to this
       forwarder might be reachable under multiple routable prefixes.</t>
     </section>
+    
     <section anchor="Acknowledgements" numbered="true" toc="default">
       <name>Acknowledgements</name>
       <t>The authors would like to thank Mark Stapp for the fruitful discussion on the objectives
        of the ICN ping protocol.</t>
     </section>
   </middle>
-  <!--  *****BACK MATTER ***** -->
+
   <back>
-    <!-- References split into informative and normative -->
-
-    <!-- There are 2 ways to insert reference entries from the citation libraries:
-     1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
-     2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
-        (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
-
-     Both are cited textually in the same manner: by using xref elements.
-     If you use the PI option, xml2rfc will, by default, try to find included files in the same
-     directory as the including file. You can also define the XML_LIBRARY environment variable
-     with a value containing a set of directories to search.  These can be either in the local
-     filing system or remote ones accessed by http (http://domain/dir/... ).-->
-
+    
     <references>
       <name>References</name>
+    
       <references>
         <name>Normative References</name>
-        <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
-      <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
-        <reference anchor="CCNMessages" target="https://tools.ietf.org/html/draft-irtf-icnrg-ccnxmessages-08">
-          <front>
-            <title>CCNx Messages in TLV Format.</title>
-            <author initials="M" surname="Mosko">
-              <organization>PARC Inc.</organization>
-            </author>
-            <author initials="I" surname="Solis">
-              <organization>LinkedIn</organization>
-            </author>
-            <author initials="C" surname="Wood">
-              <organization>UCI</organization>
-            </author>
-            <date year="2018"/>
-          </front>
-        </reference>
+        <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+        <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8569.xml"/>
+        <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8609.xml"/>
+        <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8793.xml"/>
       </references>
+
       <references>
         <name>Informative References</name>
-        <reference anchor="CCNInfo" target="https://tools.ietf.org/html/draft-asaeda-icnrg-ccninfo-01/">
-          <front>
-            <title>CCNinfo: Discovering Content and Network Information in Content-Centric Networks.</title>
-            <author initials="H" surname="Asaeda">
-              <organization>NICT</organization>
-            </author>
-            <author initials="X" surname="Shao">
-              <organization>Kitami Institute of Technology</organization>
-            </author>
-            <date year="2018"/>
-          </front>
-        </reference>
+ 
+ 	<reference anchor="I-D.irtf-icnrg-ccninfo">
+		<front>
+			<title>CCNinfo: Discovering Content and Network Information in Content-Centric Networks</title>
+			<author initials="H" surname="Asaeda" fullname="Hitoshi Asaeda">
+				<organization/>
+			</author>
+			<author initials="A" surname="Ooka" fullname="Atsushi Ooka">
+				<organization/>
+			</author>
+			<author initials="X" surname="Shao" fullname="Xun Shao">
+				<organization/>
+			</author>
+			<date month="September" day="21" year="2020"/>
+		</front>
+	<seriesInfo name="Internet-Draft" value="draft-irtf-icnrg-ccninfo-05"/>
+	<format type="TXT" target="http://www.ietf.org/internet-drafts/draft-irtf-icnrg-ccninfo-05.txt"/>
+	</reference>
+
         <reference anchor="NDNTLV" target="http://named-data.net/doc/ndn-tlv/">
           <front>
             <title>NDN Packet Format Specification.</title>
@@ -785,12 +793,12 @@
             </author>
             <date year="2016"/>
           </front>
+          <refcontent>in Proceedings of the IEEE Conference on Computer Communications Workshops (INFOCOM WKSHPS)</refcontent>
         </reference>
+        
         <reference anchor="SNAMP">
           <front>
-            <title>SNAMP: Secure namespace mapping to scale NDN forwarding,
-
-          in Proceedings of the IEEE Conference on Computer Communications Workshops (INFOCOM WKSHPS)</title>
+            <title>SNAMP: Secure namespace mapping to scale NDN forwarding</title>
             <author initials="A" surname="Afanasyev">
               <organization/>
             </author>
@@ -800,11 +808,10 @@
             <date year="2015"/>
           </front>
         </reference>
+
         <reference anchor="PATHSTEERING">
           <front>
-            <title>Path switching in content centric and named data networks,
-
-	 in Proceedings of the 4th ACM Conference on Information-Centric Networking</title>
+            <title>Path switching in content centric and named data networks</title>
             <author initials="I" surname="Moiseenko">
               <organization/>
             </author>
@@ -813,12 +820,27 @@
             </author>
             <date year="2017"/>
           </front>
+          <refcontent>in Proceedings of the 4th ACM Conference on Information-Centric Networking</refcontent>
         </reference>
+
+		<reference anchor="I-D.oran-icnrg-pathsteering">
+			<front>
+			<title>Path Steering in CCNx and NDN</title>
+			<author initials="I" surname="Moiseenko" fullname="Ilya Moiseenko">
+				<organization/>
+			</author>
+			<author initials="D" surname="Oran" fullname="David Oran">
+				<organization/>
+			</author>
+			<date month="April" day="23" year="2020"/>
+			</front>
+			<seriesInfo name="Internet-Draft" value="draft-oran-icnrg-pathsteering-01"/>
+			<format type="TXT" target="http://www.ietf.org/internet-drafts/draft-oran-icnrg-pathsteering-01.txt"/>
+		</reference>	       
+        
         <reference anchor="REALTIME">
           <front>
-            <title>Real-Time Data Retrieval in Named Data Networking,
-
-	 in Proceedings of the 1st IEEE International Conference on Hot Topics in Information-Centric Networking</title>
+            <title>Real-Time Data Retrieval in Named Data Networking</title>
             <author initials="S" surname="Mastorakis">
               <organization/>
             </author>
@@ -833,32 +855,11 @@
             </author>
             <date year="2017"/>
           </front>
+          <refcontent>in Proceedings of the 1st IEEE International Conference on Hot Topics in Information-Centric Networking</refcontent>
         </reference>
-        <reference anchor="TERMINOLOGY" target="https://datatracker.ietf.org/doc/rfc8793/">
-          <front>
-            <title>Information-Centric Networking (ICN): Content-Centric Networking (CCNx) and Named Data Networking (NDN) Terminology.</title>
-            <author initials="B" surname="Wissingh">
-              <organization>TNO</organization>
-            </author>
-            <author initials="C" surname="Wood">
-              <organization>University of California Irvine</organization>
-            </author>
-            <author initials="A" surname="Afanasyev">
-              <organization>Florida International University</organization>
-            </author>
-            <author initials="L" surname="Zhang">
-              <organization>University of California, Los Angeles</organization>
-            </author>
-            <author initials="D" surname="Oran">
-              <organization>Network Systems Research and Design</organization>
-            </author>
-            <author initials="C" surname="Tschudin">
-              <organization>University of Basel</organization>
-            </author>
-            <date year="2020"/>
-          </front>
-        </reference>
-      </references>
+
+    </references>
+    
     </references>
     <section anchor="app-additional" numbered="true" toc="default">
       <name>Ping Client Application (Consumer) Operation</name>
