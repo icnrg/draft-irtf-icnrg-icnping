@@ -30,7 +30,7 @@
          full title is longer than 39 characters -->
 
     <title abbrev="ICN Ping">ICN Ping Protocol Specification</title>
-    <seriesInfo name="Internet-Draft" value="draft-irtf-icnrg-icnping-03"/>
+    <seriesInfo name="Internet-Draft" value="draft-irtf-icnrg-icnping-04"/>
     <!-- add 'role="editor"' below for the editors if appropriate -->
 
     <!-- Another author who claims to be an editor -->
@@ -115,7 +115,7 @@
         <!-- uri and facsimile elements may also be added -->
       </address>
     </author>
-    <date year="2021"/>
+    <date year="2022"/>
 
 
     <!-- Meta-data Declarations -->
@@ -606,7 +606,7 @@
       <t>We present the workflow of the forwarder's operation in <xref target="forwarder-operation"/>.
          When a forwarder receives an echo request, it first extracts the message's
 	base name (i.e., the request name with the Nonce name component excluded as well as
-	the ParametersSha256DigestComponent and  the suffix "ping" in the case of an echo
+	the suffix "ping" and the ParametersSha256DigestComponent in the case of an echo
 	request with the NDN packet format).</t>
       <t>In some cases, the forwarder originates an echo reply,
 	sending the reply downstream through the face on which the
