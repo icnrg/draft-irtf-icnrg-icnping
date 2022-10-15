@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<!-- This template is for creating an Internet Draft using xml2rfc,
-     which is available here: http://xml.resource.org. -->
-<!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc strict="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+
 <rfc
 	xmlns:xi="http://www.w3.org/2001/XInclude"
 	category="exp"
@@ -17,63 +18,59 @@
 	symRefs="true"
 	sortRefs="true"
 	version="3">
-  <!-- xml2rfc v2v3 conversion 2.40.1 -->
-  <!-- category values: std, bcp, info, exp, and historic
-     ipr values: full3667, noModification3667, noDerivatives3667
-     you can add the attributes updates="NNNN" and obsoletes="NNNN"
-     they will automatically be output with "(if approved)" -->
-
-  <!-- ***** FRONT MATTER ***** -->
 
   <front>
-    <!-- The abbreviated title is used in the page header - it is only necessary if the
-         full title is longer than 39 characters -->
-
     <title abbrev="ICN Ping">ICN Ping Protocol Specification</title>
     <seriesInfo name="Internet-Draft" value="draft-irtf-icnrg-icnping-07"/>
-    <!-- add 'role="editor"' below for the editors if appropriate -->
-
-    <!-- Another author who claims to be an editor -->
 
     <author fullname="Spyridon Mastorakis" initials="S" surname="Mastorakis">
       <organization>University of Nebraska at Omaha</organization>
       <address>
         <postal>
           <street/>
-          <!-- Reorder these if your country does things differently -->
-
           <city>Omaha</city>
           <region>NE</region>
           <code/>
           <country>US</country>
         </postal>
         <email>smastorakis@unomaha.edu</email>
-        <!-- uri and facsimile elements may also be added -->
       </address>
+
     </author>
-    <author fullname="Jim Gibson" initials="J" surname="Gibson">
-      <organization>Cisco Systems</organization>
+
+    <author fullname="Dave Oran" initials="D" surname="Oran">
+      <organization>Network Systems Research and Design</organization>
       <address>
         <postal>
           <street/>
-          <!-- Reorder these if your country does things differently -->
-
           <city>Cambridge</city>
           <region>MA</region>
           <code/>
           <country>US</country>
         </postal>
-        <email>gibson@cisco.com</email>
-        <!-- uri and facsimile elements may also be added -->
+        <email>daveoran@orandom.net</email>
       </address>
     </author>
+
+    <author fullname="Jim Gibson" initials="J" surname="Gibson">
+      <organization>Unaffiliated</organization>
+      <address>
+        <postal>
+          <street/>
+          <city>Belmont</city>
+          <region>MA</region>
+          <code/>
+          <country>US</country>
+        </postal>
+        <email>jcgibson61@gmail.com</email>
+      </address>
+    </author>
+
     <author fullname="Ilya Moiseenko" initials="I" surname="Moiseenko">
       <organization>Apple Inc</organization>
       <address>
         <postal>
           <street/>
-          <!-- Reorder these if your country does things differently -->
-
           <city>Cupertino</city>
           <region>CA</region>
           <code/>
@@ -83,60 +80,37 @@
         <!-- uri and facsimile elements may also be added -->
       </address>
     </author>
+
     <author fullname="Ralph Droms" initials="R" surname="Droms">
       <organization>Unaffiliated</organization>
       <address>
         <postal>
           <street/>
-          <!-- Reorder these if your country does things differently -->
-
           <city>Hopkinton</city>
           <region>MA</region>
           <code/>
           <country>US</country>
         </postal>
         <email>rdroms.ietf@gmail.com</email>
-        <!-- uri and facsimile elements may also be added -->
       </address>
-    </author>
-    <author fullname="Dave Oran" initials="D" surname="Oran">
-      <organization>Network Systems Research and Design</organization>
-      <address>
-        <postal>
-          <street/>
-          <!-- Reorder these if your country does things differently -->
 
-          <city>Cambridge</city>
-          <region>MA</region>
-          <code/>
-          <country>US</country>
-        </postal>
-        <email>daveoran@orandom.net</email>
-        <!-- uri and facsimile elements may also be added -->
-      </address>
     </author>
+
     <date year="2022"/>
 
 
     <!-- Meta-data Declarations -->
 
-    <area>General</area>
+    <area>IRTF</area>
     <workgroup>ICNRG</workgroup>
-    <!-- WG name at the upperleft corner of the doc,
-         IETF is fine for individual submissions.
-	 If this element is not present, the default is "Network Working Group",
-         which is used by the RFC Editor as a nod to the history of the IETF. -->
 
-    <keyword>template</keyword>
-    <!-- Keywords will be incorporated into HTML output
-         files in a meta tag but they have no effect on text or nroff
-         output. If you submit your draft to the RFC Editor, the
-         keywords will be used for the search engine. -->
+    <keyword>ICN</keyword>
+    <keyword>Network Management</keyword>
+
 
     <abstract>
-      <t>This document presents the design of an ICN Ping protocol. It includes the operations of both the client and the forwarder.
-			This document is a product of the IRTF Information-Centric Networking Research Group (ICNRG).
-			</t>
+      <t>This document presents the design of an ICN Ping protocol. It includes the operations of both the client and the forwarder.</t>
+      <t>This document is a product of the Information-Centric Networking Research Group (ICNRG) of the IRTF.</t>
     </abstract>
   </front>
 
@@ -151,6 +125,7 @@
 	purpose, generally exercised through the familiar ping utility. In
 	ICN, where routing and forwarding are based on name prefixes, the
 	ability to ascertain reachability of names is required.</t>
+	
       <t> This document proposes protocol mechanisms for a ping equivalent in
 	ICN (<xref target="RFC8609">CCNx</xref> and <xref target="NDNTLV">NDN</xref>) networks. A non-normative appendix suggests useful properties for an ICN
 	ping client application, analogous to IP ping, that originates echo requests
@@ -169,7 +144,7 @@
 		needed to make proper use of ICN Ping in order to compute various statistics,
 		such as the variance, average, maximum and minimum RTT values as well as loss rates.</t>
 
-		<t>This document is not an Internet Standards Track specification; it is
+	<t>This document is not an Internet Standards Track specification; it is
 			published for examination, experimental implementation, and evaluation.
 			This document defines an Experimental Protocol for the Internet
 			community. This document is a product of the Internet Research Task
@@ -190,12 +165,8 @@
 
       <section numbered="true" toc="default">
         <name>Terminology</name>
-        <t>To aid the understanding of readers, we define the following terms:</t>
-        <ul spacing="normal">
-            <li>Content object: A network-level packet that carries payload, uniquely identified
-            by a name, and is directly secured <xref target="RFC8793" format="default"/>.</li>
-            <li>Producer: An ICN entity that creates Data packets and makes them available
-            for retrieval <xref target="RFC8793" format="default"/>.</li>
+        <t>This specification uses the terminology defined in <xref target="RFC8793"/>. To aid the understanding of readers, we additionally define the following terms:</t>
+        <ul>
             <li>Producer's name: The name prefix that a request must carry in order to reach a producer over an ICN network.</li>
             <li>Named Data: A synonym for a content object.</li>
             <li>Round Trip Time (RTT): The time between sending a request for a specific piece of named data and receiving the corresponding piece of named data.</li>
@@ -294,8 +265,8 @@
       packets.</t>
 
       <t>The ping protocol should also enable relatively robust round-trip time
-      measurements. To this end, it is important to have a mechanism to steer
-      consecutive ping echo requests for the same name towards an individual path. Such a capability was initially published in  <xref target="PATHSTEERING" format="default"/> and has been specified for CCNx in <xref target="I-D.draft-oran-icnrg-pathsteering"/>.</t>
+      measurements. To this end, it is valuable to have a mechanism to steer
+      consecutive ping echo requests for the same name towards an individual path. Such a capability was initially published in  <xref target="PATHSTEERING" format="default"/> and has been specified for CCNx in <xref target="I-D.irtf-icnrg-pathsteering"/>.</t>
 
       <t>It is also important, in the case of ping echo requests for the same name from different sources to have a mechanism to avoid those requests being aggregated in the PIT. To this end, we need some encoding in the ping echo requests
       to make each request for a common name unique, hence avoiding PIT aggregation and
@@ -317,7 +288,6 @@
         <name>Echo Request CCNx Packet Format</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-
  +---------------+---------------+---------------+---------------+
  |               |               |                               |
  |    Version    |  EchoRequest  |         PacketLength          |
@@ -335,15 +305,14 @@
  |                   Echo Request Message TLVs                   |
  |                                                               |
  +---------------+---------------+---------------+---------------+
-
-            ]]></artwork>
+]]></artwork>
         </figure>
 
         <t>The existing packet header fields have the same definition as the header fields of
        a CCNx Interest packet. The value of the packet type field is <em>Echo Request</em>. The exact numeric value of this field type is to be assigned in the Packet Type IANA Registry for CCNx
        (see section 4.1 of <xref target="RFC8569" format="default"/>.</t>
 
-        <t>Compared to the typical format of a CCNx packet header from <xref target="RFC8569" format="default"/>, in order to enable path steering of Echo Requests, there is an  optional fixed header Path label TLV as specified in <xref target="I-D.draft-oran-icnrg-pathsteering"/> added to the packet header:</t>
+        <t>Compared to the typical format of a CCNx packet header from <xref target="RFC8569" format="default"/>, in order to enable path steering of Echo Requests, there is an  optional fixed header Path label TLV as specified in <xref target="I-D.irtf-icnrg-pathsteering"/> added to the packet header:</t>
 
 
         <t>The message format of an echo request is presented below:</t>
@@ -353,18 +322,16 @@
 
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-
  +---------------+---------------+---------------+---------------+
  |                               |                               |
  |        MessageType = 1        |          MessageLength        |
  |                               |                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |			    Name TLV                             |
+ |			    Name TLV                                         |
  |                                                               |
  +---------------+---------------+---------------+---------------+
-
-            ]]></artwork>
+]]></artwork>
        </figure>
 
         <t>The echo request message is of type Interest in order to leverage
@@ -382,21 +349,19 @@
        <name>Nonce Name component TLV for Echo Request messages</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-
  +---------------+---------------+---------------+---------------+
  |                               |                               |
  |           Nonce_Type          |       Nonce_Length = 8        |
  |                               |                               |
  +---------------+---------------+---------------+---------------+
- |							         |
+ |							                                     |
  |                                                               |
  |                                                               |
- |			    Nonce_Value  		         |
+ |                         Nonce_Value                           |
  |                                                               |
  |                                                               |
  +---------------+---------------+---------------+---------------+
-
-            ]]></artwork>
+]]></artwork>
       </figure>
 
       </section>
@@ -410,7 +375,6 @@
         <name>Echo Reply CCNx Packet Format</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-
  +---------------+---------------+---------------+---------------+
  |               |               |                               |
  |    Version    |   EchoReply 	 |          PacketLength         |
@@ -421,23 +385,21 @@
  |                               |               |               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |                        Path label TLV		            				 |
+ |                        Path label TLV                         |
  |                                                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
  |                    Echo Reply Message TLVs                    |
  |                                                               |
  +---------------+---------------+---------------+---------------+
-
-
-            ]]></artwork>
+]]></artwork>
         </figure>
 
         <t>The header of an echo reply consists of the header fields of a CCNx Content
        Object and a hop-by-hop Path label TLV. The value of the packet type
        field is Echo Reply. The exact numeric value of this field type is to be assigned
        in the Packet Type IANA Registry for CCNx (see section 4.1 of <xref target="RFC8569" format="default"/>.
-       The Path label header TLV from <xref target="I-D.draft-oran-icnrg-pathsteering"/>
+       The Path label header TLV from <xref target="I-D.irtf-icnrg-pathsteering"/>
        is as defined for the echo request packet.</t>
 
         <t>A ping echo reply message is of type Content Object, contains a Name TLV
@@ -449,25 +411,23 @@
        <name>Echo Reply Message Format</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-
  +---------------+---------------+---------------+---------------+
  |                               |                               |
  |        MessageType = 2        |          MessageLength        |
  |                               |                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |                	      Name TLV	 		         |
+ |                	      Name TLV                               |
  |                                                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |			   PayloadType TLV 		         |
+ |			   PayloadType TLV                                   |
  |                                                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |			   ExpiryTime TLV 			 |
+ |			   ExpiryTime TLV                                    |
  |                                                               |
  +---------------+---------------+---------------+---------------+
-
             ]]></artwork>
         </figure>
 
@@ -483,27 +443,24 @@
        <name>Echo Reply Message Format</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-
  +---------------+---------------+---------------+---------------+
  |                               |                               |
  |       T_PAYLOADTYPE_DATA      |             Length            |
  |                               |                               |
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /	                Sender's Name TLV	 		 /
+ /	                Sender's Name TLV                            /
  /                                                               /
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /		      Sender's Signature TLV	 	         /
+ /		      Sender's Signature TLV                             /
  /                                                               /
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /		       Echo Reply Code TLV	 	         /
+ /		       Echo Reply Code TLV                               /
  /                                                               /
  +---------------+---------------+---------------+---------------+
-
-
-            ]]></artwork>
+]]></artwork>
         </figure>
 
         <t>The goal of including the name of the sender in the echo reply is to enable the
@@ -523,17 +480,15 @@
         <name>Echo Reply Code TLV</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-
  +---------------+---------------+---------------+---------------+
  |                               |                               |
  |     Echo_Reply_Code_Type      |  Echo_Reply_Code_Length = 2   |
  |                               |                               |
  +---------------+---------------+---------------+---------------+
- |		                           		         |
+ |                                                               |
  |                      Echo_Reply_Code_Value                    |
  +---------------+---------------+---------------+---------------+
-
-            ]]></artwork>
+]]></artwork>
         </figure>
       </section>
     </section>
@@ -560,7 +515,7 @@
         <t>The name field of an echo request consists of the name prefix to be pinged, a nonce value (it can be the
       value of the Nonce field) and the suffix "ping" to denote that this Interest is a ping request (added as a KeywordNameComponent).
 			When the "ApplicationParameters" element is present, a ParametersSha256DigestComponent is added as the last name component.</t>
-        <t>The "ApplicationParameters" field of the Request contains a Path label TLV as specified in <xref target="I-D.draft-oran-icnrg-pathsteering"/>.</t>
+        <t>The "ApplicationParameters" field of the Request contains a Path label TLV as specified in <xref target="I-D.irtf-icnrg-pathsteering"/>.</t>
         <t>Since the NDN packet format does not provide a mechanism to prevent the network from caching specific
       data packets, we use the MustBeFresh element for echo requests (in combination with a Freshness Period
       TLV of value 1 for echo replies) to avoid fetching cached echo replies with an expired freshness period
@@ -579,8 +534,8 @@
                         MetaInfo
                         Content
                         Signature
-												Path label TLV
-	        ]]></artwork>
+						Path label TLV
+]]></artwork>
         </figure>
 
         <t>Compared to the format of a regular NDN Data packet, an echo reply contains a Path label TLV field,
@@ -662,43 +617,43 @@
       <figure align="center" anchor="forwarder-operation">
       <name>Forwarder Operation</name>
             <artwork><![CDATA[
+------------------------------------------------------------------------
+                              FORWARD PATH
+------------------------------------------------------------------------
 
-      ------------------------------------------------------------------------
-                                    FORWARD PATH
-      ------------------------------------------------------------------------
+Request +------+  +-----+  +-----+(path label)  +--------+ (match) Request
+------> |Admin |->| CS  |->| PIT | ------------>| Label  |---------------->
+        | Name |  +-----+  +-----+              | Lookup |
+        |Lookup|     |       | \ (no path label)+--------+
+        +------+     |       |  \                |\ (path label mismatch)
+Reply       |        |       |   \               | \
+  <---------+        |       v    \              |  \
+  (base matches      |   aggregate \             |   \
+   admin name)       |              \            |    \
+                     | (base         \           |     +------+ Request
+             Reply   |  matches       +----------|---->| FIB  | -------->
+           <---------+  cached object)           |     +------+
+                                                 |  (no   |  | (base matches
+  Interest-Return (NACK)                         v  route)|  | local app
+  <----------------------------------------------+<-------+  | face)
+  <----------------------------------------------------------+
+  Reply
 
-    Request +------+  +-----+  +-----+(path label)  +--------+ (match) Request
-    ------> |Admin |->| CS  |->| PIT | ------------>| Label  |---------------->
-            | Name |  +-----+  +-----+              | Lookup |
-            |Lookup|     |       | \ (no path label)+--------+
-            +------+     |       |  \                |\ (path label mismatch)
-       Reply    |        |       |   \               | \
-      <---------+        |       v    \              |  \
-      (base matches      |   aggregate \             |   \
-       admin name)       |              \            |    \
-                         | (base         \           |     +------+ Request
-                 Reply   |  matches       +----------|---->| FIB  | -------->
-               <---------+  cached object)           |     +------+
-                                                     |  (no   |  | (base matches
-      Interest-Return (NACK)                         v  route)|  | local app
-      <----------------------------------------------+<-------+  | face)
-      <----------------------------------------------------------+
-      Reply
-      ------------------------------------------------------------------------
-                                    REVERSE PATH
-      ------------------------------------------------------------------------
+------------------------------------------------------------------------
+                              REVERSE PATH
+------------------------------------------------------------------------
 
-      Interest-return(NACK) +-----+ (update path label) Interest-Return(NACK)
-      <---------------------|     |<-----------------------------------------
-                            |     |
-      Reply  +------+       | PIT |  (update path label)                Reply
-      <------|  CS  |<------|     |<-----------------------------------------
-             +------+       |     |
-                            +-----+
-                               |
-                               | (no match)
-                               v
-            ]]></artwork>
+Interest-return(NACK) +-----+ (update path label) Interest-Return(NACK)
+<---------------------|     |<-----------------------------------------
+                      |     |
+Reply  +------+       | PIT |  (update path label)                Reply
+<------|  CS  |<------|     |<-----------------------------------------
+       +------+       |     |
+                      +-----+
+                         |
+                         | (no match)
+                         v
+]]></artwork>
           </figure>
     </section>
 
@@ -771,26 +726,17 @@
   </middle>
 
   <back>
+    <references><name>Normative References</name>
+	    <?rfc include="reference.RFC.2119.xml"?>
+    	<?rfc include="reference.RFC.8569.xml"?>
+    	<?rfc include="reference.RFC.8609.xml"?>
+    	<?rfc include="reference.RFC.8793.xml"?>
+    </references>
 
-    <references>
-      <name>References</name>
+    <references><name>Informative References</name>
 
-      <references>
-        <name>Normative References</name>
-        <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
-        <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8569.xml"/>
-        <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8609.xml"/>
-        <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8793.xml"/>
-      </references>
-
-      <references>
-        <name>Informative References</name>
-
-		 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-irtf-icnrg-ccninfo.xml"/>
-
- 		 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-oran-icnrg-pathsteering.xml"/>
-
-
+	    <?rfc include="reference.I-D.irtf-icnrg-ccninfo.xml"?>
+ 		<?rfc include="reference.I-D.irtf-icnrg-pathsteering.xml"?>
 
         <reference anchor="NDNTLV" target="https://named-data.net/doc/NDN-packet-spec/current/">
           <front>
@@ -828,7 +774,6 @@
           </front>
           <refcontent>in Proceedings of the 4th ACM Conference on Information-Centric Networking</refcontent>
         </reference>
-				<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-irtf-icnrg-pathsteering-00.xml"/>
 
         <reference anchor="REALTIME">
           <front>
@@ -852,7 +797,6 @@
 
     </references>
 
-    </references>
 
     <section anchor="app-additional" numbered="true" toc="default">
       <name>Ping Client Application (Consumer) Operation</name>
