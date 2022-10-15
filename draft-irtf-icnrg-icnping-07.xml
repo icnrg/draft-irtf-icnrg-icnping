@@ -125,7 +125,7 @@
 	purpose, generally exercised through the familiar ping utility. In
 	ICN, where routing and forwarding are based on name prefixes, the
 	ability to ascertain reachability of names is required.</t>
-	
+
       <t> This document proposes protocol mechanisms for a ping equivalent in
 	ICN (<xref target="RFC8609">CCNx</xref> and <xref target="NDNTLV">NDN</xref>) networks. A non-normative appendix suggests useful properties for an ICN
 	ping client application, analogous to IP ping, that originates echo requests
@@ -453,11 +453,11 @@
  /                                                               /
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /		      Sender's Signature TLV                             /
+ /		        Sender's Signature TLV                             /
  /                                                               /
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /		       Echo Reply Code TLV                               /
+ /		         Echo Reply Code TLV                               /
  /                                                               /
  +---------------+---------------+---------------+---------------+
 ]]></artwork>
@@ -515,7 +515,7 @@
         <t>The name field of an echo request consists of the name prefix to be pinged, a nonce value (it can be the
       value of the Nonce field) and the suffix "ping" to denote that this Interest is a ping request (added as a KeywordNameComponent).
 			When the "ApplicationParameters" element is present, a ParametersSha256DigestComponent is added as the last name component.</t>
-        <t>The "ApplicationParameters" field of the Request contains a Path label TLV as specified in <xref target="I-D.irtf-icnrg-pathsteering"/>.</t>
+        <t>An echo request carries a Path label TLV in the NDN Link Adaptation Protocol as specified in <xref target="I-D.irtf-icnrg-pathsteering"/>.</t>
         <t>Since the NDN packet format does not provide a mechanism to prevent the network from caching specific
       data packets, we use the MustBeFresh element for echo requests (in combination with a Freshness Period
       TLV of value 1 for echo replies) to avoid fetching cached echo replies with an expired freshness period
@@ -534,13 +534,12 @@
                         MetaInfo
                         Content
                         Signature
-						Path label TLV
 ]]></artwork>
         </figure>
 
-        <t>Compared to the format of a regular NDN Data packet, an echo reply contains a Path label TLV field,
-      which is not included in the security envelope, since it might be modified in a hop-by-hop fashion by
-      the forwarders along the reverse path.</t>
+        <t>An echo reply contains a Path label TLV in the NDN Link Adaptation Protocol
+					as specified in <xref target="I-D.irtf-icnrg-pathsteering"/>, since it might be modified in a
+					hop-by-hop fashion by the forwarders along the reverse path.</t>
         <t>The name of an echo reply is the name of the corresponding echo request, while the format of the MetaInfo field
       is the following:</t>
 
