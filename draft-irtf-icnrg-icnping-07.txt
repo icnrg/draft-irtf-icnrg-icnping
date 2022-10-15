@@ -315,7 +315,7 @@ Internet-Draft                  ICN Ping                    October 2022
    time measurements.  To this end, it is valuable to have a mechanism
    to steer consecutive ping echo requests for the same name towards an
    individual path.  Such a capability was initially published in
-   [PATHSTEERING] and has been specified for CCNx in
+   [PATHSTEERING] and has been specified for CCNx and NDN in
    [I-D.irtf-icnrg-pathsteering].
 
    It is also important, in the case of ping echo requests for the same
@@ -394,18 +394,18 @@ Mastorakis, et al.        Expires 18 April 2023                 [Page 7]
 Internet-Draft                  ICN Ping                    October 2022
 
 
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +---------------+---------------+---------------+---------------+
- |                               |                               |
- |        MessageType = 1        |          MessageLength        |
- |                               |                               |
- +---------------+---------------+---------------+---------------+
- |                                                               |
- |                          Name TLV                                         |
- |                                                               |
- +---------------+---------------+---------------+---------------+
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +---------------+---------------+---------------+---------------+
+    |                               |                               |
+    |        MessageType = 1        |          MessageLength        |
+    |                               |                               |
+    +---------------+---------------+---------------+---------------+
+    |                                                               |
+    |                           Name TLV                            |
+    |                                                               |
+    +---------------+---------------+---------------+---------------+
 
-                Figure 2: Echo Request Message Format
+                   Figure 2: Echo Request Message Format
 
    The echo request message is of type Interest in order to leverage the
    Interest forwarding behavior provided by the network.  The Name TLV
@@ -419,21 +419,21 @@ Internet-Draft                  ICN Ping                    October 2022
    client matching of replies with requests.  As described below, the
    nonce is ignored for CS checking.
 
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +---------------+---------------+---------------+---------------+
- |                               |                               |
- |           Nonce_Type          |       Nonce_Length = 8        |
- |                               |                               |
- +---------------+---------------+---------------+---------------+
- |                                                                                           |
- |                                                               |
- |                                                               |
- |                         Nonce_Value                           |
- |                                                               |
- |                                                               |
- +---------------+---------------+---------------+---------------+
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +---------------+---------------+---------------+---------------+
+    |                               |                               |
+    |           Nonce_Type          |       Nonce_Length = 8        |
+    |                               |                               |
+    +---------------+---------------+---------------+---------------+
+    |                                                               |
+    |                                                               |
+    |                                                               |
+    |                         Nonce_Value                           |
+    |                                                               |
+    |                                                               |
+    +---------------+---------------+---------------+---------------+
 
-     Figure 3: Nonce Name component TLV for Echo Request messages
+        Figure 3: Nonce Name component TLV for Echo Request messages
 
 4.2.  Ping Echo Reply CCNx Packet Format
 
@@ -506,26 +506,26 @@ Mastorakis, et al.        Expires 18 April 2023                 [Page 9]
 Internet-Draft                  ICN Ping                    October 2022
 
 
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +---------------+---------------+---------------+---------------+
- |                               |                               |
- |        MessageType = 2        |          MessageLength        |
- |                               |                               |
- +---------------+---------------+---------------+---------------+
- |                                                               |
- |                            Name TLV                               |
- |                                                               |
- +---------------+---------------+---------------+---------------+
- |                                                               |
- |                         PayloadType TLV                                   |
- |                                                               |
- +---------------+---------------+---------------+---------------+
- |                                                               |
- |                         ExpiryTime TLV                                    |
- |                                                               |
- +---------------+---------------+---------------+---------------+
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +---------------+---------------+---------------+---------------+
+    |                               |                               |
+    |        MessageType = 2        |          MessageLength        |
+    |                               |                               |
+    +---------------+---------------+---------------+---------------+
+    |                                                               |
+    |                           Name TLV                            |
+    |                                                               |
+    +---------------+---------------+---------------+---------------+
+    |                                                               |
+    |                       PayloadType TLV                         |
+    |                                                               |
+    +---------------+---------------+---------------+---------------+
+    |                                                               |
+    |                       ExpiryTime TLV                          |
+    |                                                               |
+    +---------------+---------------+---------------+---------------+
 
-                 Figure 5: Echo Reply Message Format
+                    Figure 5: Echo Reply Message Format
 
    The PayloadType TLV is presented below.  It is of type
    T_PAYLOADTYPE_DATA, and the data schema consists of 3 TLVs: 1) the
@@ -536,24 +536,24 @@ Internet-Draft                  ICN Ping                    October 2022
    existence of a local application, a CS hit or a match with a
    forwarder's administrative name as specified in Section 6).
 
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +---------------+---------------+---------------+---------------+
- |                               |                               |
- |       T_PAYLOADTYPE_DATA      |             Length            |
- |                               |                               |
- +---------------+---------------+---------------+---------------+
- /                                                               /
- /                      Sender's Name TLV                            /
- /                                                               /
- +---------------+---------------+---------------+---------------+
- /                                                               /
- /                    Sender's Signature TLV                             /
- /                                                               /
- +---------------+---------------+---------------+---------------+
- /                                                               /
- /                     Echo Reply Code TLV                               /
- /                                                               /
- +---------------+---------------+---------------+---------------+
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +---------------+---------------+---------------+---------------+
+    |                               |                               |
+    |       T_PAYLOADTYPE_DATA      |             Length            |
+    |                               |                               |
+    +---------------+---------------+---------------+---------------+
+    /                                                               /
+    /                      Sender's Name TLV                        /
+    /                                                               /
+    +---------------+---------------+---------------+---------------+
+    /                                                               /
+    /                    Sender's Signature TLV                     /
+    /                                                               /
+    +---------------+---------------+---------------+---------------+
+    /                                                               /
+    /                     Echo Reply Code TLV                       /
+    /                                                               /
+    +---------------+---------------+---------------+---------------+
 
 
 
@@ -562,7 +562,7 @@ Mastorakis, et al.        Expires 18 April 2023                [Page 10]
 Internet-Draft                  ICN Ping                    October 2022
 
 
-                 Figure 6: Echo Reply Message Format
+                    Figure 6: Echo Reply Message Format
 
    The goal of including the name of the sender in the echo reply is to
    enable the user to reach this entity directly to ask for further
@@ -624,11 +624,11 @@ Internet-Draft                  ICN Ping                    October 2022
    pinged, a nonce value (it can be the value of the Nonce field) and
    the suffix "ping" to denote that this Interest is a ping request
    (added as a KeywordNameComponent).  When the "ApplicationParameters"
-   element is present, a ParametersSha256DigestComponent is added as the
+   element is present, a parametersSha256DigestComponent is added as the
    last name component.
 
-   The "ApplicationParameters" field of the Request contains a Path
-   label TLV as specified in [I-D.irtf-icnrg-pathsteering].
+   An echo request MAY carry a Path label TLV in the NDN Link Adaptation
+   Protocol [NDNLPv2] as specified in [I-D.irtf-icnrg-pathsteering].
 
    Since the NDN packet format does not provide a mechanism to prevent
    the network from caching specific data packets, we use the
@@ -646,14 +646,13 @@ Internet-Draft                  ICN Ping                    October 2022
                            MetaInfo
                            Content
                            Signature
-                                                   Path label TLV
 
                    Figure 9: Echo Reply NDN Packet Format
 
-   Compared to the format of a regular NDN Data packet, an echo reply
-   contains a Path label TLV field, which is not included in the
-   security envelope, since it might be modified in a hop-by-hop fashion
-   by the forwarders along the reverse path.
+   An echo reply MAY contain a Path label TLV in the NDN Link Adaptation
+   Protocol [NDNLPv2] as specified in [I-D.irtf-icnrg-pathsteering],
+   since it might be modified in a hop-by-hop fashion by the forwarders
+   along the reverse path.
 
    The name of an echo reply is the name of the corresponding echo
    request, while the format of the MetaInfo field is the following:
@@ -664,8 +663,9 @@ Internet-Draft                  ICN Ping                    October 2022
 
                           Figure 10: MetaInfo TLV
 
-
-
+   The value of the ContentType TLV is 0.  The value of the
+   FreshnessPeriod TLV is 1, so that the replies are treated as stale
+   data (almost instantly) as they are received by a forwarder.
 
 
 
@@ -673,10 +673,6 @@ Mastorakis, et al.        Expires 18 April 2023                [Page 12]
 
 Internet-Draft                  ICN Ping                    October 2022
 
-
-   The value of the ContentType TLV is 0.  The value of the
-   FreshnessPeriod TLV is 1, so that the replies are treated as stale
-   data (almost instantly) as they are received by a forwarder.
 
    The content of an echo reply consists of the following 2 TLVs:
    Sender's name (with a structure similar as an NDN Name TLV) and Echo
@@ -721,6 +717,10 @@ Internet-Draft                  ICN Ping                    October 2022
       client application has chosen not to receive replies due to CS
       hits as specified in Appendix A).
 
+   *  The echo request base name matches (in a Longest Prefix Match
+      manner) a FIB entry with an outgoing face referring to a local
+      application.
+
 
 
 
@@ -729,10 +729,6 @@ Mastorakis, et al.        Expires 18 April 2023                [Page 13]
 
 Internet-Draft                  ICN Ping                    October 2022
 
-
-   *  The echo request base name matches (in a Longest Prefix Match
-      manner) a FIB entry with an outgoing face referring to a local
-      application.
 
    If none of the conditions to reply to the echo request are met, the
    forwarder will attempt to forward the echo request upstream based on
@@ -748,6 +744,10 @@ Internet-Draft                  ICN Ping                    October 2022
    will be updated by each forwarder to encode its next-hop choice.
    When included in subsequent echo requests, this Path label TLV allows
    the forwarders to steer the echo requests along the same path.
+
+
+
+
 
 
 
@@ -971,6 +971,10 @@ Internet-Draft                  ICN Ping                    October 2022
               <https://www.ietf.org/archive/id/draft-irtf-icnrg-
               pathsteering-00.txt>.
 
+   [NDNLPv2]  "Named Data Networking Link Adaptation Protocol v2",
+              various, <https://redmine.named-
+              data.net/projects/nfd/wiki/NDNLPv2>.
+
    [NDNTLV]   "NDN Packet Format Specification.", 2021,
               <https://named-data.net/doc/NDN-packet-spec/current/>.
 
@@ -996,12 +1000,8 @@ Appendix A.  Ping Client Application (Consumer) Operation
    The ping client application is responsible for generating echo
    requests for prefixes provided by users.
 
-   When generating a series of echo requests for a specific name, the
-   first echo request will typically not include a Path label TLV, since
-   no TLV value is known.  After an echo reply containing a Path label
-   TLV is received, each subsequent echo request can include the
-   received path steering value in the Path label header TLV to drive
-   the requests towards a common path as part of checking network
+
+
 
 
 
@@ -1010,6 +1010,12 @@ Mastorakis, et al.        Expires 18 April 2023                [Page 18]
 Internet-Draft                  ICN Ping                    October 2022
 
 
+   When generating a series of echo requests for a specific name, the
+   first echo request will typically not include a Path label TLV, since
+   no TLV value is known.  After an echo reply containing a Path label
+   TLV is received, each subsequent echo request can include the
+   received path steering value in the Path label header TLV to drive
+   the requests towards a common path as part of checking network
    performance.  To discover more paths, a client can omit the path
    steering TLV in future requests.  Moreover, for each new ping echo
    request, the client has to generate a new nonce and record the time
@@ -1052,18 +1058,15 @@ Authors' Addresses
    Network Systems Research and Design
    Cambridge, MA
    United States of America
-   Email: daveoran@orandom.net
-
-
-
-
-
 
 
 
 Mastorakis, et al.        Expires 18 April 2023                [Page 19]
 
 Internet-Draft                  ICN Ping                    October 2022
+
+
+   Email: daveoran@orandom.net
 
 
    Jim Gibson
@@ -1085,9 +1088,6 @@ Internet-Draft                  ICN Ping                    October 2022
    Hopkinton, MA
    United States of America
    Email: rdroms.ietf@gmail.com
-
-
-
 
 
 

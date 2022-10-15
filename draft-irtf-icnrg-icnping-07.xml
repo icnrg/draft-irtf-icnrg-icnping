@@ -266,7 +266,7 @@
 
       <t>The ping protocol should also enable relatively robust round-trip time
       measurements. To this end, it is valuable to have a mechanism to steer
-      consecutive ping echo requests for the same name towards an individual path. Such a capability was initially published in  <xref target="PATHSTEERING" format="default"/> and has been specified for CCNx in <xref target="I-D.irtf-icnrg-pathsteering"/>.</t>
+      consecutive ping echo requests for the same name towards an individual path. Such a capability was initially published in  <xref target="PATHSTEERING" format="default"/> and has been specified for CCNx and NDN in <xref target="I-D.irtf-icnrg-pathsteering"/>.</t>
 
       <t>It is also important, in the case of ping echo requests for the same name from different sources to have a mechanism to avoid those requests being aggregated in the PIT. To this end, we need some encoding in the ping echo requests
       to make each request for a common name unique, hence avoiding PIT aggregation and
@@ -328,7 +328,7 @@
  |                               |                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |			    Name TLV                                         |
+ |                           Name TLV                            |
  |                                                               |
  +---------------+---------------+---------------+---------------+
 ]]></artwork>
@@ -354,7 +354,7 @@
  |           Nonce_Type          |       Nonce_Length = 8        |
  |                               |                               |
  +---------------+---------------+---------------+---------------+
- |							                                     |
+ |                                                               |
  |                                                               |
  |                                                               |
  |                         Nonce_Value                           |
@@ -417,18 +417,18 @@
  |                               |                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |                	      Name TLV                               |
+ |                           Name TLV                            |
  |                                                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |			   PayloadType TLV                                   |
+ |                       PayloadType TLV                         |
  |                                                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |			   ExpiryTime TLV                                    |
+ |                       ExpiryTime TLV                          |
  |                                                               |
  +---------------+---------------+---------------+---------------+
-            ]]></artwork>
+]]></artwork>
         </figure>
 
         <t>The PayloadType TLV is presented below. It is of type T_PAYLOADTYPE_DATA, and
@@ -449,15 +449,15 @@
  |                               |                               |
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /	                Sender's Name TLV                            /
+ /                      Sender's Name TLV                        /
  /                                                               /
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /		        Sender's Signature TLV                             /
+ /                    Sender's Signature TLV                     /
  /                                                               /
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /		         Echo Reply Code TLV                               /
+ /                     Echo Reply Code TLV                       /
  /                                                               /
  +---------------+---------------+---------------+---------------+
 ]]></artwork>
@@ -512,14 +512,11 @@
 	        ]]></artwork>
         </figure>
 
-        <t>The name field of an echo request consists of the name prefix to be pinged, a nonce value (it can be the
-      value of the Nonce field) and the suffix "ping" to denote that this Interest is a ping request (added as a KeywordNameComponent).
-			When the "ApplicationParameters" element is present, a ParametersSha256DigestComponent is added as the last name component.</t>
-        <t>An echo request carries a Path label TLV in the <xref target="NDNLPv2">NDN Link Adaptation Protocol</xref> as specified in <xref target="I-D.irtf-icnrg-pathsteering"/>.</t>
-        <t>Since the NDN packet format does not provide a mechanism to prevent the network from caching specific
-      data packets, we use the MustBeFresh element for echo requests (in combination with a Freshness Period
-      TLV of value 1 for echo replies) to avoid fetching cached echo replies with an expired freshness period
-      <xref target="REALTIME" format="default"/>.</t>
+        <t>The name field of an echo request consists of the name prefix to be pinged, a nonce value (it can be the value of the Nonce field) and the suffix "ping" to denote that this Interest is a ping request (added as a KeywordNameComponent).			When the "ApplicationParameters" element is present, a parametersSha256DigestComponent is added as the last name component.</t>
+        
+        <t>An echo request MAY carry a Path label TLV in the <xref target="NDNLPv2">NDN Link Adaptation Protocol</xref> as specified in <xref target="I-D.irtf-icnrg-pathsteering"/>.</t>
+        
+        <t>Since the NDN packet format does not provide a mechanism to prevent the network from caching specific data packets, we use the MustBeFresh element for echo requests (in combination with a Freshness Period TLV of value 1 for echo replies) to avoid fetching cached echo replies with an expired freshness period <xref target="REALTIME" format="default"/>.</t>
       </section>
 
       <section numbered="true" toc="default">
@@ -537,11 +534,9 @@
 ]]></artwork>
         </figure>
 
-        <t>An echo reply contains a Path label TLV in the <xref target="NDNLPv2">NDN Link Adaptation Protocol</xref>
-					as specified in <xref target="I-D.irtf-icnrg-pathsteering"/>, since it might be modified in a
-					hop-by-hop fashion by the forwarders along the reverse path.</t>
-        <t>The name of an echo reply is the name of the corresponding echo request, while the format of the MetaInfo field
-      is the following:</t>
+        <t>An echo reply MAY contain a Path label TLV in the <xref target="NDNLPv2">NDN Link Adaptation Protocol</xref>	as specified in <xref target="I-D.irtf-icnrg-pathsteering"/>, since it might be modified in a					hop-by-hop fashion by the forwarders along the reverse path.</t>
+        
+        <t>The name of an echo reply is the name of the corresponding echo request, while the format of the MetaInfo field is the following:</t>
 
       <figure align="center">
       <name>MetaInfo TLV</name>
@@ -549,18 +544,16 @@
       MetaInfo = META-INFO-TYPE TLV-LENGTH
                      ContentType
                      FreshnessPeriod
-	             ]]></artwork>
+]]></artwork>
         </figure>
 
         <t>The value of the ContentType TLV is 0. The value of the
-      FreshnessPeriod TLV is 1, so that the replies are treated as stale data (almost instantly) as
-      they are received by a forwarder.</t>
+      FreshnessPeriod TLV is 1, so that the replies are treated as stale data (almost instantly) as they are received by a forwarder.</t>
+      
         <t>The content of an echo reply consists of the following 2 TLVs: Sender's name
-      (with a structure similar as an NDN Name TLV)
-      and Echo Reply Code. There is no need to have a separate TLV for the sender's
-      signature in the content of the reply, since every NDN data packet carries the
-      signature of the data producer.</t>
-        <t>The Echo Reply Code TLV format is the following (with the values specified in
+      (with a structure similar as an NDN Name TLV) and Echo Reply Code. There is no need to have a separate TLV for the sender's signature in the content of the reply, since every NDN data packet carries the signature of the data producer.</t>
+      
+      <t>The Echo Reply Code TLV format is the following (with the values specified in
       <xref target="CCNxReply" format="default"/>):</t>
 
       <figure align="center">
@@ -575,11 +568,8 @@
 
     <section anchor="forwarder" numbered="true" toc="default">
       <name>Forwarder Handling</name>
-      <t>We present the workflow of the forwarder's operation in <xref target="forwarder-operation"/>.
-         When a forwarder receives an echo request, it first extracts the message's
-	base name (i.e., the request name with the Nonce name component excluded as well as
-	the suffix "ping" and the ParametersSha256DigestComponent in the case of an echo
-	request with the NDN packet format).</t>
+      <t>We present the workflow of the forwarder's operation in <xref target="forwarder-operation"/>. When a forwarder receives an echo request, it first extracts the message's base name (i.e., the request name with the Nonce name component excluded as well as	the suffix "ping" and the ParametersSha256DigestComponent in the case of an echo request with the NDN packet format).</t>
+      
       <t>In some cases, the forwarder originates an echo reply,
 	sending the reply downstream through the face on which the
 	echo request was received. This echo reply includes the forwarder's

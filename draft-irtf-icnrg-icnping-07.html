@@ -1533,7 +1533,7 @@ li > p:last-of-type {
       packets.<a href="#section-3-10" class="pilcrow">¶</a></p>
 <p id="section-3-11">The ping protocol should also enable relatively robust round-trip time
       measurements. To this end, it is valuable to have a mechanism to steer
-      consecutive ping echo requests for the same name towards an individual path. Such a capability was initially published in  <span>[<a href="#PATHSTEERING" class="cite xref">PATHSTEERING</a>]</span> and has been specified for CCNx in <span>[<a href="#I-D.irtf-icnrg-pathsteering" class="cite xref">I-D.irtf-icnrg-pathsteering</a>]</span>.<a href="#section-3-11" class="pilcrow">¶</a></p>
+      consecutive ping echo requests for the same name towards an individual path. Such a capability was initially published in  <span>[<a href="#PATHSTEERING" class="cite xref">PATHSTEERING</a>]</span> and has been specified for CCNx and NDN in <span>[<a href="#I-D.irtf-icnrg-pathsteering" class="cite xref">I-D.irtf-icnrg-pathsteering</a>]</span>.<a href="#section-3-11" class="pilcrow">¶</a></p>
 <p id="section-3-12">It is also important, in the case of ping echo requests for the same name from different sources to have a mechanism to avoid those requests being aggregated in the PIT. To this end, we need some encoding in the ping echo requests
       to make each request for a common name unique, hence avoiding PIT aggregation and
       further enabling the exact match of a response with a particular ping packet. However, avoiding PIT aggregation could lead to PIT DoS attacks.<a href="#section-3-12" class="pilcrow">¶</a></p>
@@ -1596,7 +1596,7 @@ li > p:last-of-type {
  |                               |                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |                          Name TLV                                         |
+ |                           Name TLV                            |
  |                                                               |
  +---------------+---------------+---------------+---------------+
 </pre>
@@ -1624,7 +1624,7 @@ li > p:last-of-type {
  |           Nonce_Type          |       Nonce_Length = 8        |
  |                               |                               |
  +---------------+---------------+---------------+---------------+
- |                                                                                           |
+ |                                                               |
  |                                                               |
  |                                                               |
  |                         Nonce_Value                           |
@@ -1689,15 +1689,15 @@ li > p:last-of-type {
  |                               |                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |                            Name TLV                               |
+ |                           Name TLV                            |
  |                                                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |                         PayloadType TLV                                   |
+ |                       PayloadType TLV                         |
  |                                                               |
  +---------------+---------------+---------------+---------------+
  |                                                               |
- |                         ExpiryTime TLV                                    |
+ |                       ExpiryTime TLV                          |
  |                                                               |
  +---------------+---------------+---------------+---------------+
 </pre>
@@ -1722,15 +1722,15 @@ li > p:last-of-type {
  |                               |                               |
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /                      Sender's Name TLV                            /
+ /                      Sender's Name TLV                        /
  /                                                               /
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /                    Sender's Signature TLV                             /
+ /                    Sender's Signature TLV                     /
  /                                                               /
  +---------------+---------------+---------------+---------------+
  /                                                               /
- /                     Echo Reply Code TLV                               /
+ /                     Echo Reply Code TLV                       /
  /                                                               /
  +---------------+---------------+---------------+---------------+
 </pre>
@@ -1797,14 +1797,9 @@ li > p:last-of-type {
 <figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
 <a href="#name-echo-request-ndn-packet-form" class="selfRef">Echo Request NDN Packet Format</a>
           </figcaption></figure>
-<p id="section-5.1-3">The name field of an echo request consists of the name prefix to be pinged, a nonce value (it can be the
-      value of the Nonce field) and the suffix "ping" to denote that this Interest is a ping request (added as a KeywordNameComponent).
- When the "ApplicationParameters" element is present, a ParametersSha256DigestComponent is added as the last name component.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">The "ApplicationParameters" field of the Request contains a Path label TLV as specified in <span>[<a href="#I-D.irtf-icnrg-pathsteering" class="cite xref">I-D.irtf-icnrg-pathsteering</a>]</span>.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">Since the NDN packet format does not provide a mechanism to prevent the network from caching specific
-      data packets, we use the MustBeFresh element for echo requests (in combination with a Freshness Period
-      TLV of value 1 for echo replies) to avoid fetching cached echo replies with an expired freshness period
-      <span>[<a href="#REALTIME" class="cite xref">REALTIME</a>]</span>.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">The name field of an echo request consists of the name prefix to be pinged, a nonce value (it can be the value of the Nonce field) and the suffix "ping" to denote that this Interest is a ping request (added as a KeywordNameComponent). When the "ApplicationParameters" element is present, a parametersSha256DigestComponent is added as the last name component.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">An echo request MAY carry a Path label TLV in the <span><a href="#NDNLPv2" class="internal xref">NDN Link Adaptation Protocol</a> [<a href="#NDNLPv2" class="cite xref">NDNLPv2</a>]</span> as specified in <span>[<a href="#I-D.irtf-icnrg-pathsteering" class="cite xref">I-D.irtf-icnrg-pathsteering</a>]</span>.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-5">Since the NDN packet format does not provide a mechanism to prevent the network from caching specific data packets, we use the MustBeFresh element for echo requests (in combination with a Freshness Period TLV of value 1 for echo replies) to avoid fetching cached echo replies with an expired freshness period <span>[<a href="#REALTIME" class="cite xref">REALTIME</a>]</span>.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
 </section>
 <section id="section-5.2">
         <h3 id="name-ping-echo-reply-ndn-packet-f">
@@ -1819,17 +1814,13 @@ li > p:last-of-type {
                         MetaInfo
                         Content
                         Signature
-                                                Path label TLV
 </pre>
 </div>
 <figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
 <a href="#name-echo-reply-ndn-packet-format" class="selfRef">Echo Reply NDN Packet Format</a>
           </figcaption></figure>
-<p id="section-5.2-3">Compared to the format of a regular NDN Data packet, an echo reply contains a Path label TLV field,
-      which is not included in the security envelope, since it might be modified in a hop-by-hop fashion by
-      the forwarders along the reverse path.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.2-4">The name of an echo reply is the name of the corresponding echo request, while the format of the MetaInfo field
-      is the following:<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">An echo reply MAY contain a Path label TLV in the <span><a href="#NDNLPv2" class="internal xref">NDN Link Adaptation Protocol</a> [<a href="#NDNLPv2" class="cite xref">NDNLPv2</a>]</span> as specified in <span>[<a href="#I-D.irtf-icnrg-pathsteering" class="cite xref">I-D.irtf-icnrg-pathsteering</a>]</span>, since it might be modified in a hop-by-hop fashion by the forwarders along the reverse path.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">The name of an echo reply is the name of the corresponding echo request, while the format of the MetaInfo field is the following:<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 <span id="name-metainfo-tlv-2"></span><figure id="figure-10">
           <div class="alignLeft art-text artwork" id="section-5.2-5.1">
 <pre>
@@ -1842,13 +1833,9 @@ li > p:last-of-type {
 <a href="#name-metainfo-tlv-2" class="selfRef">MetaInfo TLV</a>
           </figcaption></figure>
 <p id="section-5.2-6">The value of the ContentType TLV is 0. The value of the
-      FreshnessPeriod TLV is 1, so that the replies are treated as stale data (almost instantly) as
-      they are received by a forwarder.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
+      FreshnessPeriod TLV is 1, so that the replies are treated as stale data (almost instantly) as they are received by a forwarder.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
 <p id="section-5.2-7">The content of an echo reply consists of the following 2 TLVs: Sender's name
-      (with a structure similar as an NDN Name TLV)
-      and Echo Reply Code. There is no need to have a separate TLV for the sender's
-      signature in the content of the reply, since every NDN data packet carries the
-      signature of the data producer.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
+      (with a structure similar as an NDN Name TLV) and Echo Reply Code. There is no need to have a separate TLV for the sender's signature in the content of the reply, since every NDN data packet carries the signature of the data producer.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
 <p id="section-5.2-8">The Echo Reply Code TLV format is the following (with the values specified in
       <a href="#CCNxReply" class="auto internal xref">Section 4.2</a>):<a href="#section-5.2-8" class="pilcrow">¶</a></p>
 <span id="name-echo-reply-code-tlv-4"></span><figure id="figure-11">
@@ -1867,11 +1854,7 @@ li > p:last-of-type {
       <h2 id="name-forwarder-handling-2">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-forwarder-handling-2" class="section-name selfRef">Forwarder Handling</a>
       </h2>
-<p id="section-6-1">We present the workflow of the forwarder's operation in <a href="#forwarder-operation" class="auto internal xref">Figure 12</a>.
-         When a forwarder receives an echo request, it first extracts the message's
- base name (i.e., the request name with the Nonce name component excluded as well as
- the suffix "ping" and the ParametersSha256DigestComponent in the case of an echo
- request with the NDN packet format).<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">We present the workflow of the forwarder's operation in <a href="#forwarder-operation" class="auto internal xref">Figure 12</a>. When a forwarder receives an echo request, it first extracts the message's base name (i.e., the request name with the Nonce name component excluded as well as the suffix "ping" and the ParametersSha256DigestComponent in the case of an echo request with the NDN packet format).<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">In some cases, the forwarder originates an echo reply,
  sending the reply downstream through the face on which the
  echo request was received. This echo reply includes the forwarder's
@@ -2067,6 +2050,10 @@ Reply  +------+       | PIT |  (update path label)                Reply
 <dt id="I-D.irtf-icnrg-pathsteering">[I-D.irtf-icnrg-pathsteering]</dt>
       <dd>
 <span class="refAuthor">Moiseenko, I.</span> and <span class="refAuthor">D. R. Oran</span>, <span class="refTitle">"Path Steering in CCNx and NDN"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-icnrg-pathsteering-00</span>, <time datetime="2022-10-13" class="refDate">13 October 2022</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-irtf-icnrg-pathsteering-00.txt">https://www.ietf.org/archive/id/draft-irtf-icnrg-pathsteering-00.txt</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="NDNLPv2">[NDNLPv2]</dt>
+      <dd>
+<span class="refTitle">"Named Data Networking Link Adaptation Protocol v2"</span>, <span>various</span>, <span>&lt;<a href="https://redmine.named-data.net/projects/nfd/wiki/NDNLPv2">https://redmine.named-data.net/projects/nfd/wiki/NDNLPv2</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NDNTLV">[NDNTLV]</dt>
       <dd>
