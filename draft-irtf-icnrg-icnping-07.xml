@@ -295,7 +295,7 @@
 
       <t>The ping protocol should also enable relatively robust round-trip time
       measurements. To this end, it is important to have a mechanism to steer
-      consecutive ping echo requests for the same name towards an individual path. Such a capability was initially published in  <xref target="PATHSTEERING" format="default"/> and has been specified for CCNx in <xref target="I-D.oran-icnrg-pathsteering"/>.</t>
+      consecutive ping echo requests for the same name towards an individual path. Such a capability was initially published in  <xref target="PATHSTEERING" format="default"/> and has been specified for CCNx in <xref target="I-D.draft-oran-icnrg-pathsteering"/>.</t>
 
       <t>It is also important, in the case of ping echo requests for the same name from different sources to have a mechanism to avoid those requests being aggregated in the PIT. To this end, we need some encoding in the ping echo requests
       to make each request for a common name unique, hence avoiding PIT aggregation and
@@ -343,7 +343,7 @@
        a CCNx Interest packet. The value of the packet type field is <em>Echo Request</em>. The exact numeric value of this field type is to be assigned in the Packet Type IANA Registry for CCNx
        (see section 4.1 of <xref target="RFC8569" format="default"/>.</t>
 
-        <t>Compared to the typical format of a CCNx packet header from <xref target="RFC8569" format="default"/>, in order to enable path steering of Echo Requests, there is an  optional fixed header Path label TLV as specified in <xref target="I-D.oran-icnrg-pathsteering"/> added to the packet header:</t>
+        <t>Compared to the typical format of a CCNx packet header from <xref target="RFC8569" format="default"/>, in order to enable path steering of Echo Requests, there is an  optional fixed header Path label TLV as specified in <xref target="I-D.draft-oran-icnrg-pathsteering"/> added to the packet header:</t>
 
 
         <t>The message format of an echo request is presented below:</t>
@@ -437,7 +437,7 @@
        Object and a hop-by-hop Path label TLV. The value of the packet type
        field is Echo Reply. The exact numeric value of this field type is to be assigned
        in the Packet Type IANA Registry for CCNx (see section 4.1 of <xref target="RFC8569" format="default"/>.
-       The Path label header TLV from <xref target="I-D.oran-icnrg-pathsteering"/>
+       The Path label header TLV from <xref target="I-D.draft-oran-icnrg-pathsteering"/>
        is as defined for the echo request packet.</t>
 
         <t>A ping echo reply message is of type Content Object, contains a Name TLV
@@ -560,7 +560,7 @@
         <t>The name field of an echo request consists of the name prefix to be pinged, a nonce value (it can be the
       value of the Nonce field) and the suffix "ping" to denote that this Interest is a ping request (added as a KeywordNameComponent).
 			When the "ApplicationParameters" element is present, a ParametersSha256DigestComponent is added as the last name component.</t>
-        <t>The "ApplicationParameters" field of the Request contains a Path label TLV as specified in <xref target="I-D.oran-icnrg-pathsteering"/>.</t>
+        <t>The "ApplicationParameters" field of the Request contains a Path label TLV as specified in <xref target="I-D.draft-oran-icnrg-pathsteering"/>.</t>
         <t>Since the NDN packet format does not provide a mechanism to prevent the network from caching specific
       data packets, we use the MustBeFresh element for echo requests (in combination with a Freshness Period
       TLV of value 1 for echo replies) to avoid fetching cached echo replies with an expired freshness period
