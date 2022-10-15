@@ -828,6 +828,7 @@
           </front>
           <refcontent>in Proceedings of the 4th ACM Conference on Information-Centric Networking</refcontent>
         </reference>
+				<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-irtf-icnrg-pathsteering-00.xml"/>
 
         <reference anchor="REALTIME">
           <front>
