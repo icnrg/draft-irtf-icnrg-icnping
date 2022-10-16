@@ -610,22 +610,22 @@
                               FORWARD PATH
 ------------------------------------------------------------------------
 
-Request +------+  +-----+  +-----+(path label)  +--------+ (match) Request
-------> |Admin |->| CS  |->| PIT | ------------>| Label  |---------------->
+Request +------+  +-----+  +-----+(path label)  +--------+(match)Request
+------> |Admin |->| CS  |->| PIT | ------------>| Label  |------------->
         | Name |  +-----+  +-----+              | Lookup |
         |Lookup|     |       | \ (no path label)+--------+
-        +------+     |       |  \                |\ (path label mismatch)
+        +------+     |       |  \                |\(path label mismatch)
 Reply       |        |       |   \               | \
   <---------+        |       v    \              |  \
   (base matches      |   aggregate \             |   \
    admin name)       |              \            |    \
                      | (base         \           |     +------+ Request
-             Reply   |  matches       +----------|---->| FIB  | -------->
+             Reply   |  matches       +----------|---->| FIB  | ------->
            <---------+  cached object)           |     +------+
-                                                 |  (no   |  | (base matches
-  Interest-Return (NACK)                         v  route)|  | local app
-  <----------------------------------------------+<-------+  | face)
-  <----------------------------------------------------------+
+                                                 |  (no   |  | (base
+  Interest-Return (NACK)                         v  route)|  | matches
+  <----------------------------------------------+<-------+  | local app
+  <----------------------------------------------------------+ face)
   Reply
 
 ------------------------------------------------------------------------
@@ -714,7 +714,8 @@ Reply  +------+       | PIT |  (update path label)                Reply
     </section>
   </middle>
 
-  <back>
+<back>
+  <references><name>References</name>  
     <references><name>Normative References</name>
 	    <?rfc include="reference.RFC.2119.xml"?>
     	<?rfc include="reference.RFC.8569.xml"?>
@@ -791,9 +792,8 @@ Reply  +------+       | PIT |  (update path label)                Reply
              <date>various</date>
            </front>
          </reference>
-
     </references>
-
+  </references>
 
     <section anchor="app-additional" numbered="true" toc="default">
       <name>Ping Client Application (Consumer) Operation</name>

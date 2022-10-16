@@ -5,14 +5,14 @@
 ICNRG                                                      S. Mastorakis
 Internet-Draft                           University of Nebraska at Omaha
 Intended status: Experimental                                    D. Oran
-Expires: 18 April 2023               Network Systems Research and Design
+Expires: 19 April 2023               Network Systems Research and Design
                                                                J. Gibson
                                                             Unaffiliated
                                                             I. Moiseenko
                                                                Apple Inc
                                                                 R. Droms
                                                             Unaffiliated
-                                                         15 October 2022
+                                                         16 October 2022
 
 
                     ICN Ping Protocol Specification
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 April 2023.
+   This Internet-Draft will expire on 19 April 2023.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                 [Page 1]
+Mastorakis, et al.        Expires 19 April 2023                 [Page 1]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -82,9 +82,10 @@ Table of Contents
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
    10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
-   11. Normative References  . . . . . . . . . . . . . . . . . . . .  17
-   12. Informative References  . . . . . . . . . . . . . . . . . . .  18
-   Appendix A.  Ping Client Application (Consumer) Operation . . . .  18
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  17
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  18
+   Appendix A.  Ping Client Application (Consumer) Operation . . . .  19
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
@@ -108,8 +109,7 @@ Table of Contents
 
 
 
-
-Mastorakis, et al.        Expires 18 April 2023                 [Page 2]
+Mastorakis, et al.        Expires 19 April 2023                 [Page 2]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -165,7 +165,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                 [Page 3]
+Mastorakis, et al.        Expires 19 April 2023                 [Page 3]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -221,7 +221,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                 [Page 4]
+Mastorakis, et al.        Expires 19 April 2023                 [Page 4]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -277,7 +277,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                 [Page 5]
+Mastorakis, et al.        Expires 19 April 2023                 [Page 5]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -333,7 +333,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                 [Page 6]
+Mastorakis, et al.        Expires 19 April 2023                 [Page 6]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -389,7 +389,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                 [Page 7]
+Mastorakis, et al.        Expires 19 April 2023                 [Page 7]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -445,7 +445,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                 [Page 8]
+Mastorakis, et al.        Expires 19 April 2023                 [Page 8]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -501,7 +501,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                 [Page 9]
+Mastorakis, et al.        Expires 19 April 2023                 [Page 9]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -557,7 +557,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                [Page 10]
+Mastorakis, et al.        Expires 19 April 2023                [Page 10]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -613,7 +613,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                [Page 11]
+Mastorakis, et al.        Expires 19 April 2023                [Page 11]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -669,7 +669,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                [Page 12]
+Mastorakis, et al.        Expires 19 April 2023                [Page 12]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -725,7 +725,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                [Page 13]
+Mastorakis, et al.        Expires 19 April 2023                [Page 13]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -781,7 +781,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                [Page 14]
+Mastorakis, et al.        Expires 19 April 2023                [Page 14]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -790,22 +790,22 @@ Internet-Draft                  ICN Ping                    October 2022
                               FORWARD PATH
 ------------------------------------------------------------------------
 
-Request +------+  +-----+  +-----+(path label)  +--------+ (match) Request
-------> |Admin |->| CS  |->| PIT | ------------>| Label  |---------------->
+Request +------+  +-----+  +-----+(path label)  +--------+(match)Request
+------> |Admin |->| CS  |->| PIT | ------------>| Label  |------------->
         | Name |  +-----+  +-----+              | Lookup |
         |Lookup|     |       | \ (no path label)+--------+
-        +------+     |       |  \                |\ (path label mismatch)
+        +------+     |       |  \                |\(path label mismatch)
 Reply       |        |       |   \               | \
   <---------+        |       v    \              |  \
   (base matches      |   aggregate \             |   \
    admin name)       |              \            |    \
                      | (base         \           |     +------+ Request
-             Reply   |  matches       +----------|---->| FIB  | -------->
+             Reply   |  matches       +----------|---->| FIB  | ------->
            <---------+  cached object)           |     +------+
-                                                 |  (no   |  | (base matches
-  Interest-Return (NACK)                         v  route)|  | local app
-  <----------------------------------------------+<-------+  | face)
-  <----------------------------------------------------------+
+                                                 |  (no   |  | (base
+  Interest-Return (NACK)                         v  route)|  | matches
+  <----------------------------------------------+<-------+  | local app
+  <----------------------------------------------------------+ face)
   Reply
 
 ------------------------------------------------------------------------
@@ -837,7 +837,7 @@ Reply  +------+       | PIT |  (update path label)                Reply
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                [Page 15]
+Mastorakis, et al.        Expires 19 April 2023                [Page 15]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -893,7 +893,7 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-Mastorakis, et al.        Expires 18 April 2023                [Page 16]
+Mastorakis, et al.        Expires 19 April 2023                [Page 16]
 
 Internet-Draft                  ICN Ping                    October 2022
 
@@ -923,7 +923,9 @@ Internet-Draft                  ICN Ping                    October 2022
    The authors would like to thank Mark Stapp for the fruitful
    discussion on the objectives of the ICN ping protocol.
 
-11.  Normative References
+11.  References
+
+11.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -940,6 +942,18 @@ Internet-Draft                  ICN Ping                    October 2022
               DOI 10.17487/RFC8609, July 2019,
               <https://www.rfc-editor.org/info/rfc8609>.
 
+
+
+
+
+
+
+
+Mastorakis, et al.        Expires 19 April 2023                [Page 17]
+
+Internet-Draft                  ICN Ping                    October 2022
+
+
    [RFC8793]  Wissingh, B., Wood, C., Afanasyev, A., Zhang, L., Oran,
               D., and C. Tschudin, "Information-Centric Networking
               (ICN): Content-Centric Networking (CCNx) and Named Data
@@ -947,14 +961,7 @@ Internet-Draft                  ICN Ping                    October 2022
               DOI 10.17487/RFC8793, June 2020,
               <https://www.rfc-editor.org/info/rfc8793>.
 
-
-
-Mastorakis, et al.        Expires 18 April 2023                [Page 17]
-
-Internet-Draft                  ICN Ping                    October 2022
-
-
-12.  Informative References
+11.2.  Informative References
 
    [I-D.irtf-icnrg-ccninfo]
               Asaeda, H., Ooka, A., and X. Shao, "CCNinfo: Discovering
@@ -992,6 +999,17 @@ Internet-Draft                  ICN Ping                    October 2022
    [SNAMP]    Afanasyev, A. and , "SNAMP: Secure namespace mapping to
               scale NDN forwarding", 2015.
 
+
+
+
+
+
+
+Mastorakis, et al.        Expires 19 April 2023                [Page 18]
+
+Internet-Draft                  ICN Ping                    October 2022
+
+
 Appendix A.  Ping Client Application (Consumer) Operation
 
    This section is an informative appendix regarding the proposed ping
@@ -999,16 +1017,6 @@ Appendix A.  Ping Client Application (Consumer) Operation
 
    The ping client application is responsible for generating echo
    requests for prefixes provided by users.
-
-
-
-
-
-
-Mastorakis, et al.        Expires 18 April 2023                [Page 18]
-
-Internet-Draft                  ICN Ping                    October 2022
-
 
    When generating a series of echo requests for a specific name, the
    first echo request will typically not include a Path label TLV, since
@@ -1047,6 +1055,17 @@ Internet-Draft                  ICN Ping                    October 2022
 
 Authors' Addresses
 
+
+
+
+
+
+
+Mastorakis, et al.        Expires 19 April 2023                [Page 19]
+
+Internet-Draft                  ICN Ping                    October 2022
+
+
    Spyridon Mastorakis
    University of Nebraska at Omaha
    Omaha, NE
@@ -1058,14 +1077,6 @@ Authors' Addresses
    Network Systems Research and Design
    Cambridge, MA
    United States of America
-
-
-
-Mastorakis, et al.        Expires 18 April 2023                [Page 19]
-
-Internet-Draft                  ICN Ping                    October 2022
-
-
    Email: daveoran@orandom.net
 
 
@@ -1106,15 +1117,4 @@ Internet-Draft                  ICN Ping                    October 2022
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Mastorakis, et al.        Expires 18 April 2023                [Page 20]
+Mastorakis, et al.        Expires 19 April 2023                [Page 20]

@@ -1199,7 +1199,7 @@ li > p:last-of-type {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Mastorakis, et al.</td>
-<td class="center">Expires 18 April 2023</td>
+<td class="center">Expires 19 April 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1212,12 +1212,12 @@ li > p:last-of-type {
 <dd class="internet-draft">draft-irtf-icnrg-icnping-07</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2022-10-15" class="published">15 October 2022</time>
+<time datetime="2022-10-16" class="published">16 October 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Experimental</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-04-18">18 April 2023</time></dd>
+<dd class="expires"><time datetime="2023-04-19">19 April 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1268,7 +1268,7 @@ li > p:last-of-type {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 18 April 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 April 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1349,16 +1349,21 @@ li > p:last-of-type {
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-acknowledgements-2" class="internal xref">Acknowledgements</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-normative-references-2" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-references-2" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-normative-references-2" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-informative-references-2" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-informative-references-2" class="internal xref">Informative References</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-ping-client-application-cons" class="internal xref">Ping Client Application (Consumer) Operation</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-ping-client-application-cons" class="internal xref">Ping Client Application (Consumer) Operation</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses-2" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses-2" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1899,22 +1904,22 @@ li > p:last-of-type {
                               FORWARD PATH
 ------------------------------------------------------------------------
 
-Request +------+  +-----+  +-----+(path label)  +--------+ (match) Request
-------&gt; |Admin |-&gt;| CS  |-&gt;| PIT | ------------&gt;| Label  |----------------&gt;
+Request +------+  +-----+  +-----+(path label)  +--------+(match)Request
+------&gt; |Admin |-&gt;| CS  |-&gt;| PIT | ------------&gt;| Label  |-------------&gt;
         | Name |  +-----+  +-----+              | Lookup |
         |Lookup|     |       | \ (no path label)+--------+
-        +------+     |       |  \                |\ (path label mismatch)
+        +------+     |       |  \                |\(path label mismatch)
 Reply       |        |       |   \               | \
   &lt;---------+        |       v    \              |  \
   (base matches      |   aggregate \             |   \
    admin name)       |              \            |    \
                      | (base         \           |     +------+ Request
-             Reply   |  matches       +----------|----&gt;| FIB  | --------&gt;
+             Reply   |  matches       +----------|----&gt;| FIB  | -------&gt;
            &lt;---------+  cached object)           |     +------+
-                                                 |  (no   |  | (base matches
-  Interest-Return (NACK)                         v  route)|  | local app
-  &lt;----------------------------------------------+&lt;-------+  | face)
-  &lt;----------------------------------------------------------+
+                                                 |  (no   |  | (base
+  Interest-Return (NACK)                         v  route)|  | matches
+  &lt;----------------------------------------------+&lt;-------+  | local app
+  &lt;----------------------------------------------------------+ face)
   Reply
 
 ------------------------------------------------------------------------
@@ -2016,62 +2021,67 @@ Reply  +------+       | PIT |  (update path label)                Reply
 </section>
 </div>
 <section id="section-11">
-      <h2 id="name-normative-references-2">
-<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
+      <h2 id="name-references-2">
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references-2" class="section-name selfRef">References</a>
       </h2>
+<section id="section-11.1">
+        <h3 id="name-normative-references-2">
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8569">[RFC8569]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Mosko, M.</span>, <span class="refAuthor">Solis, I.</span>, and <span class="refAuthor">C. Wood</span>, <span class="refTitle">"Content-Centric Networking (CCNx) Semantics"</span>, <span class="seriesInfo">RFC 8569</span>, <span class="seriesInfo">DOI 10.17487/RFC8569</span>, <time datetime="2019-07" class="refDate">July 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8569">https://www.rfc-editor.org/info/rfc8569</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8609">[RFC8609]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Mosko, M.</span>, <span class="refAuthor">Solis, I.</span>, and <span class="refAuthor">C. Wood</span>, <span class="refTitle">"Content-Centric Networking (CCNx) Messages in TLV Format"</span>, <span class="seriesInfo">RFC 8609</span>, <span class="seriesInfo">DOI 10.17487/RFC8609</span>, <time datetime="2019-07" class="refDate">July 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8609">https://www.rfc-editor.org/info/rfc8609</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8793">[RFC8793]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Wissingh, B.</span>, <span class="refAuthor">Wood, C.</span>, <span class="refAuthor">Afanasyev, A.</span>, <span class="refAuthor">Zhang, L.</span>, <span class="refAuthor">Oran, D.</span>, and <span class="refAuthor">C. Tschudin</span>, <span class="refTitle">"Information-Centric Networking (ICN): Content-Centric Networking (CCNx) and Named Data Networking (NDN) Terminology"</span>, <span class="seriesInfo">RFC 8793</span>, <span class="seriesInfo">DOI 10.17487/RFC8793</span>, <time datetime="2020-06" class="refDate">June 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8793">https://www.rfc-editor.org/info/rfc8793</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
-<section id="section-12">
-      <h2 id="name-informative-references-2">
-<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-informative-references-2" class="section-name selfRef">Informative References</a>
-      </h2>
+<section id="section-11.2">
+        <h3 id="name-informative-references-2">
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references-2" class="section-name selfRef">Informative References</a>
+        </h3>
 <dl class="references">
 <dt id="I-D.irtf-icnrg-ccninfo">[I-D.irtf-icnrg-ccninfo]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Asaeda, H.</span>, <span class="refAuthor">Ooka, A.</span>, and <span class="refAuthor">X. Shao</span>, <span class="refTitle">"CCNinfo: Discovering Content and Network Information in Content-Centric Networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-icnrg-ccninfo-13</span>, <time datetime="2022-10-05" class="refDate">5 October 2022</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-irtf-icnrg-ccninfo-13.txt">https://www.ietf.org/archive/id/draft-irtf-icnrg-ccninfo-13.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.irtf-icnrg-pathsteering">[I-D.irtf-icnrg-pathsteering]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Moiseenko, I.</span> and <span class="refAuthor">D. R. Oran</span>, <span class="refTitle">"Path Steering in CCNx and NDN"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-icnrg-pathsteering-00</span>, <time datetime="2022-10-13" class="refDate">13 October 2022</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-irtf-icnrg-pathsteering-00.txt">https://www.ietf.org/archive/id/draft-irtf-icnrg-pathsteering-00.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NDNLPv2">[NDNLPv2]</dt>
-      <dd>
+        <dd>
 <span class="refTitle">"Named Data Networking Link Adaptation Protocol v2"</span>, <span>various</span>, <span>&lt;<a href="https://redmine.named-data.net/projects/nfd/wiki/NDNLPv2">https://redmine.named-data.net/projects/nfd/wiki/NDNLPv2</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NDNTLV">[NDNTLV]</dt>
-      <dd>
+        <dd>
 <span class="refTitle">"NDN Packet Format Specification."</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://named-data.net/doc/NDN-packet-spec/current/">https://named-data.net/doc/NDN-packet-spec/current/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="PATHSTEERING">[PATHSTEERING]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Moiseenko, I.</span> and <span class="refAuthor">D. Oran</span>, <span class="refTitle">"Path switching in content centric and named data networks"</span>, <span class="refContent">in Proceedings of the 4th ACM Conference on Information-Centric Networking</span>, <time datetime="2017" class="refDate">2017</time>. </dd>
 <dd class="break"></dd>
 <dt id="REALTIME">[REALTIME]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Mastorakis, S.</span>, <span class="refAuthor">Gusev, P.</span>, <span class="refAuthor">Afanasyev, A.</span>, and <span class="refAuthor">L. Zhang</span>, <span class="refTitle">"Real-Time Data Retrieval in Named Data Networking"</span>, <span class="refContent">in Proceedings of the 1st IEEE International Conference on Hot Topics in Information-Centric Networking</span>, <time datetime="2017" class="refDate">2017</time>. </dd>
 <dd class="break"></dd>
 <dt id="SNAMP">[SNAMP]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Afanasyev, A.</span>, <span class="refTitle">"SNAMP: Secure namespace mapping to scale NDN forwarding"</span>, <time datetime="2015" class="refDate">2015</time>. </dd>
 <dd class="break"></dd>
 </dl>
+</section>
 </section>
 <div id="app-additional">
 <section id="appendix-A">
