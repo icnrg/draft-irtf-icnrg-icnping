@@ -5,18 +5,18 @@
 ICNRG                                                      S. Mastorakis
 Internet-Draft                                  University of Notre Dame
 Intended status: Experimental                                    D. Oran
-Expires: 14 January 2024             Network Systems Research and Design
+Expires: 15 January 2024             Network Systems Research and Design
                                                                J. Gibson
                                                             Unaffiliated
                                                             I. Moiseenko
                                                                Apple Inc
                                                                 R. Droms
                                                             Unaffiliated
-                                                            13 July 2023
+                                                            14 July 2023
 
 
                     ICN Ping Protocol Specification
-                      draft-irtf-icnrg-icnping-09
+                      draft-irtf-icnrg-icnping-10
 
 Abstract
 
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 January 2024.
+   This Internet-Draft will expire on 15 January 2024.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Mastorakis, et al.       Expires 14 January 2024                [Page 1]
+Mastorakis, et al.       Expires 15 January 2024                [Page 1]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Mastorakis, et al.       Expires 14 January 2024                [Page 2]
+Mastorakis, et al.       Expires 15 January 2024                [Page 2]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -165,7 +165,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024                [Page 3]
+Mastorakis, et al.       Expires 15 January 2024                [Page 3]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -221,7 +221,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024                [Page 4]
+Mastorakis, et al.       Expires 15 January 2024                [Page 4]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -277,7 +277,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024                [Page 5]
+Mastorakis, et al.       Expires 15 January 2024                [Page 5]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -333,7 +333,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024                [Page 6]
+Mastorakis, et al.       Expires 15 January 2024                [Page 6]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -389,7 +389,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024                [Page 7]
+Mastorakis, et al.       Expires 15 January 2024                [Page 7]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -411,13 +411,13 @@ Internet-Draft                  ICN Ping                       July 2023
    Interest forwarding behavior provided by the network.  The Name TLV
    has the structure described in [RFC8609].  The name consists of the
    prefix that we would like to ping appended with a nonce typed name
-   component as its last component.  The nonce can be encoded as a
-   base64 string base64-encoded string with the URL-safe alphabet as
-   defined in Section 5 of [RFC4648], with padding omitted.  See
-   Section 9 for the value assigned to this name segment type.  The
-   value of this TLV is a 64-bit nonce.  The purpose of the nonce is to
-   avoid Interest aggregation and allow client matching of replies with
-   requests.  As described below, the nonce is ignored for CS checking.
+   segment as its last segment.  The nonce can be encoded as a base64
+   string base64-encoded string with the URL-safe alphabet as defined in
+   Section 5 of [RFC4648], with padding omitted.  See Section 9 for the
+   value assigned to this name segment type.  The value of this TLV is a
+   64-bit nonce.  The purpose of the nonce is to avoid Interest
+   aggregation and allow client matching of replies with requests.  As
+   described below, the nonce is ignored for CS checking.
 
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +---------------+---------------+---------------+---------------+
@@ -433,7 +433,7 @@ Internet-Draft                  ICN Ping                       July 2023
     |                                                               |
     +---------------+---------------+---------------+---------------+
 
-        Figure 3: Nonce Name component TLV for Echo Request messages
+         Figure 3: Nonce Name Segment TLV for Echo Request messages
 
 4.2.  Ping Echo Reply CCNx Packet Format
 
@@ -445,7 +445,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024                [Page 8]
+Mastorakis, et al.       Expires 15 January 2024                [Page 8]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -501,7 +501,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024                [Page 9]
+Mastorakis, et al.       Expires 15 January 2024                [Page 9]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -557,7 +557,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024               [Page 10]
+Mastorakis, et al.       Expires 15 January 2024               [Page 10]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -613,7 +613,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024               [Page 11]
+Mastorakis, et al.       Expires 15 January 2024               [Page 11]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -625,7 +625,7 @@ Internet-Draft                  ICN Ping                       July 2023
    the suffix "ping" to denote that this Interest is a ping request
    (added as a KeywordNameComponent).  When the "ApplicationParameters"
    element is present, a parametersSha256DigestComponent is added as the
-   last name component.
+   last name segment.
 
    An echo request MAY carry a Path label TLV in the NDN Link Adaptation
    Protocol [NDNLPv2] as specified in [I-D.irtf-icnrg-pathsteering].
@@ -669,7 +669,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024               [Page 12]
+Mastorakis, et al.       Expires 15 January 2024               [Page 12]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -692,7 +692,7 @@ Internet-Draft                  ICN Ping                       July 2023
    We present the workflow of the forwarder's operation in Figure 12.
    When a forwarder receives an echo request, it first extracts the
    message's base name (i.e., the request name with the Nonce name
-   component excluded as well as the suffix "ping" and the
+   segment excluded as well as the suffix "ping" and the
    ParametersSha256DigestComponent in the case of an echo request with
    the NDN packet format).
 
@@ -725,7 +725,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024               [Page 13]
+Mastorakis, et al.       Expires 15 January 2024               [Page 13]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -734,7 +734,7 @@ Internet-Draft                  ICN Ping                       July 2023
    forwarder will attempt to forward the echo request upstream based on
    the path steering value (if present), the results of the FIB LPM
    lookup and PIT creation (based on the name including the nonce typed
-   name component and the suffix "ping" in the case of an echo request
+   name segment and the suffix "ping" in the case of an echo request
    with the NDN packet format).  If no valid next-hop is found, an
    InterestReturn is sent downstream indicating "no route" (as with a
    failed attempt to forward an ordinary Interest).
@@ -781,7 +781,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024               [Page 14]
+Mastorakis, et al.       Expires 15 January 2024               [Page 14]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -837,7 +837,7 @@ Reply  +------+       | PIT |  (update path label)                Reply
 
 
 
-Mastorakis, et al.       Expires 14 January 2024               [Page 15]
+Mastorakis, et al.       Expires 15 January 2024               [Page 15]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -893,7 +893,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024               [Page 16]
+Mastorakis, et al.       Expires 15 January 2024               [Page 16]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -949,7 +949,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024               [Page 17]
+Mastorakis, et al.       Expires 15 January 2024               [Page 17]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024               [Page 18]
+Mastorakis, et al.       Expires 15 January 2024               [Page 18]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -1061,7 +1061,7 @@ Authors' Addresses
 
 
 
-Mastorakis, et al.       Expires 14 January 2024               [Page 19]
+Mastorakis, et al.       Expires 15 January 2024               [Page 19]
 
 Internet-Draft                  ICN Ping                       July 2023
 
@@ -1117,4 +1117,4 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 14 January 2024               [Page 20]
+Mastorakis, et al.       Expires 15 January 2024               [Page 20]

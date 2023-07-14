@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
-<?rfc strict="yes" ?>
-<?rfc compact="yes" ?>
-<?rfc subcompact="no" ?>
+<!-- <xi:strict="yes" ?>
+<xi:compact="yes" ?>
+<xi:subcompact="no" ?>  -->
 
 <rfc
 	xmlns:xi="http://www.w3.org/2001/XInclude"
 	category="exp"
-	docName="draft-irtf-icnrg-icnping-09"
+	docName="draft-irtf-icnrg-icnping-10"
 	ipr="trust200902"
 	obsoletes=""
 	updates=""
@@ -21,7 +21,7 @@
 
   <front>
     <title abbrev="ICN Ping">ICN Ping Protocol Specification</title>
-    <seriesInfo name="Internet-Draft" value="draft-irtf-icnrg-icnping-09"/>
+    <seriesInfo name="Internet-Draft" value="draft-irtf-icnrg-icnping-10"/>
 
     <author fullname="Spyridon Mastorakis" initials="S" surname="Mastorakis">
       <organization>University of Notre Dame</organization>
@@ -336,11 +336,11 @@
        the Interest forwarding behavior provided by the network. The Name TLV
        has the structure described in <xref target="RFC8609"/>.
        The name consists of the prefix that we would like to ping appended with
-       a nonce typed name component as its last component. The nonce can be encoded as a base64 string base64-encoded string with the URL-safe alphabet as defined in Section 5 of <xref target="RFC4648"/>, with padding omitted. See <xref target="IANA"/> for the value assigned to this name segment type. The value of this TLV is a 64-bit nonce.
+       a nonce typed name segment as its last segment. The nonce can be encoded as a base64 string base64-encoded string with the URL-safe alphabet as defined in Section 5 of <xref target="RFC4648"/>, with padding omitted. See <xref target="IANA"/> for the value assigned to this name segment type. The value of this TLV is a 64-bit nonce.
        The purpose of the nonce is to avoid Interest aggregation and allow client matching of replies with requests. As described below, the nonce is ignored for CS checking.</t>
 
        <figure align="center">
-       <name>Nonce Name component TLV for Echo Request messages</name>
+       <name>Nonce Name Segment TLV for Echo Request messages</name>
         <artwork align="left" name="" type="" alt=""><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +---------------+---------------+---------------+---------------+
@@ -504,7 +504,7 @@
 	        ]]></artwork>
         </figure>
 
-        <t>The name field of an echo request consists of the name prefix to be pinged, a nonce value (it can be the value of the Nonce field) and the suffix "ping" to denote that this Interest is a ping request (added as a KeywordNameComponent).			When the "ApplicationParameters" element is present, a parametersSha256DigestComponent is added as the last name component.</t>
+        <t>The name field of an echo request consists of the name prefix to be pinged, a nonce value (it can be the value of the Nonce field) and the suffix "ping" to denote that this Interest is a ping request (added as a KeywordNameComponent).			When the "ApplicationParameters" element is present, a parametersSha256DigestComponent is added as the last name segment.</t>
         
         <t>An echo request MAY carry a Path label TLV in the <xref target="NDNLPv2">NDN Link Adaptation Protocol</xref> as specified in <xref target="I-D.irtf-icnrg-pathsteering"/>.</t>
         
@@ -560,7 +560,7 @@
 
     <section anchor="forwarder" numbered="true" toc="default">
       <name>Forwarder Handling</name>
-      <t>We present the workflow of the forwarder's operation in <xref target="forwarder-operation"/>. When a forwarder receives an echo request, it first extracts the message's base name (i.e., the request name with the Nonce name component excluded as well as	the suffix "ping" and the ParametersSha256DigestComponent in the case of an echo request with the NDN packet format).</t>
+      <t>We present the workflow of the forwarder's operation in <xref target="forwarder-operation"/>. When a forwarder receives an echo request, it first extracts the message's base name (i.e., the request name with the Nonce name segment excluded as well as	the suffix "ping" and the ParametersSha256DigestComponent in the case of an echo request with the NDN packet format).</t>
       
       <t>In some cases, the forwarder originates an echo reply,
 	sending the reply downstream through the face on which the
@@ -585,7 +585,7 @@
       <t>If none of the conditions to reply to the echo request are met, the
 	forwarder will attempt to forward the echo request upstream based on the path
 	steering value (if present), the results of the
-	FIB LPM lookup and PIT creation (based on the name including the nonce typed name component and the suffix "ping" in the case of an echo request with the NDN packet format). If no valid next-hop is found, an
+	FIB LPM lookup and PIT creation (based on the name including the nonce typed name segment and the suffix "ping" in the case of an echo request with the NDN packet format). If no valid next-hop is found, an
 	InterestReturn is sent downstream indicating "no route" (as with a failed attempt to
 	forward an ordinary Interest).</t>
       <t>A received echo reply will be matched to an existing PIT entry as usual. On
@@ -708,17 +708,17 @@ Reply  +------+       | PIT |  (update path label)                Reply
 <back>
   <references><name>References</name>  
     <references><name>Normative References</name>
-	    <?rfc include="reference.RFC.2119.xml"?>
-    	<?rfc include="reference.RFC.8569.xml"?>
-    	<?rfc include="reference.RFC.8609.xml"?>
-    	<?rfc include="reference.RFC.8793.xml"?>
+	    <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+    	<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8569.xml"/>
+    	<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8609.xml"/>
+    	<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8793.xml"/>
     </references>
 
     <references><name>Informative References</name>
 
-	    <?rfc include="reference.RFC.9344.xml"?>
-	    <?rfc include="reference.RFC.4648.xml"?>
- 		<?rfc include="reference.I-D.irtf-icnrg-pathsteering.xml"?>
+	    <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9344.xml"/>
+	    <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"/>
+ 		<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.irtf-icnrg-pathsteering.xml"/>
 
         <reference anchor="NDNTLV" target="https://named-data.net/doc/NDN-packet-spec/current/">
           <front>
