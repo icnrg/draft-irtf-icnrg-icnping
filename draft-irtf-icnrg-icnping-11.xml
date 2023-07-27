@@ -7,7 +7,7 @@
 <rfc
 	xmlns:xi="http://www.w3.org/2001/XInclude"
 	category="exp"
-	docName="draft-irtf-icnrg-icnping-10"
+	docName="draft-irtf-icnrg-icnping-11"
 	ipr="trust200902"
 	obsoletes=""
 	updates=""
@@ -21,7 +21,7 @@
 
   <front>
     <title abbrev="ICN Ping">ICN Ping Protocol Specification</title>
-    <seriesInfo name="Internet-Draft" value="draft-irtf-icnrg-icnping-10"/>
+    <seriesInfo name="Internet-Draft" value="draft-irtf-icnrg-icnping-11"/>
 
     <author fullname="Spyridon Mastorakis" initials="S" surname="Mastorakis">
       <organization>University of Notre Dame</organization>
@@ -336,7 +336,7 @@
        the Interest forwarding behavior provided by the network. The Name TLV
        has the structure described in <xref target="RFC8609"/>.
        The name consists of the prefix that we would like to ping appended with
-       a nonce typed name segment as its last segment. The nonce can be encoded as a base64 string base64-encoded string with the URL-safe alphabet as defined in Section 5 of <xref target="RFC4648"/>, with padding omitted. See <xref target="IANA"/> for the value assigned to this name segment type. The value of this TLV is a 64-bit nonce.
+       a nonce typed name segment as its last segment. The nonce can be encoded as a base64-encoded string with the URL-safe alphabet as defined in Section 5 of <xref target="RFC4648"/>, with padding omitted. See <xref target="IANA"/> for the value assigned to this name segment type. The value of this TLV is a 64-bit nonce.
        The purpose of the nonce is to avoid Interest aggregation and allow client matching of replies with requests. As described below, the nonce is ignored for CS checking.</t>
 
        <figure align="center">
