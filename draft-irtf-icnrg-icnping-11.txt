@@ -5,14 +5,14 @@
 ICNRG                                                      S. Mastorakis
 Internet-Draft                                  University of Notre Dame
 Intended status: Experimental                                    D. Oran
-Expires: 28 January 2024             Network Systems Research and Design
+Expires: 4 February 2024             Network Systems Research and Design
                                                                J. Gibson
                                                             Unaffiliated
                                                             I. Moiseenko
                                                                Apple Inc
                                                                 R. Droms
                                                             Unaffiliated
-                                                            27 July 2023
+                                                           3 August 2023
 
 
                     ICN Ping Protocol Specification
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 January 2024.
+   This Internet-Draft will expire on 4 February 2024.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Mastorakis, et al.       Expires 28 January 2024                [Page 1]
+Mastorakis, et al.       Expires 4 February 2024                [Page 1]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Mastorakis, et al.       Expires 28 January 2024                [Page 2]
+Mastorakis, et al.       Expires 4 February 2024                [Page 2]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
    In order to carry out meaningful experimentation and deployment of
@@ -145,7 +145,9 @@ Internet-Draft                  ICN Ping                       July 2023
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in [RFC2119].
+   document are to be interpreted as described in BCP 14 [RFC2119]
+   [RFC8174] when, and only when, they appear in all capitals, as shown
+   here.
 
 1.2.  Terminology
 
@@ -158,17 +160,19 @@ Internet-Draft                  ICN Ping                       July 2023
 
    *  Named Data: A synonym for a content object.
 
+
+
+
+
+
+Mastorakis, et al.       Expires 4 February 2024                [Page 3]
+
+Internet-Draft                  ICN Ping                     August 2023
+
+
    *  Round Trip Time (RTT): The time between sending a request for a
       specific piece of named data and receiving the corresponding piece
       of named data.
-
-
-
-
-Mastorakis, et al.       Expires 28 January 2024                [Page 3]
-
-Internet-Draft                  ICN Ping                       July 2023
-
 
    *  Sender: An entity that sends a request for named data or a piece
       of named data.
@@ -213,18 +217,17 @@ Internet-Draft                  ICN Ping                       July 2023
    diagnostic capability than can be realized through the layered ICMP
    Echo approach.
 
+
+
+
+
+Mastorakis, et al.       Expires 4 February 2024                [Page 4]
+
+Internet-Draft                  ICN Ping                     August 2023
+
+
    An ICN network differs from an IP network in at least 4 important
    ways:
-
-
-
-
-
-
-Mastorakis, et al.       Expires 28 January 2024                [Page 4]
-
-Internet-Draft                  ICN Ping                       July 2023
-
 
    *  IP identifies interfaces to an IP network with a fixed-length
       address, and delivers IP packets to one or more of these
@@ -271,16 +274,16 @@ Internet-Draft                  ICN Ping                       July 2023
 
    Our goals are the following:
 
+
+
+
+Mastorakis, et al.       Expires 4 February 2024                [Page 5]
+
+Internet-Draft                  ICN Ping                     August 2023
+
+
    *  Test the reachability and the operational state of an ICN
       forwarder.
-
-
-
-
-Mastorakis, et al.       Expires 28 January 2024                [Page 5]
-
-Internet-Draft                  ICN Ping                       July 2023
-
 
    *  Test the reachability of a producer or a data repository (in the
       sense of whether Interests for a prefix that it serves can be
@@ -330,12 +333,9 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-
-
-
-Mastorakis, et al.       Expires 28 January 2024                [Page 6]
+Mastorakis, et al.       Expires 4 February 2024                [Page 6]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
 4.  ICN Ping Echo CCNx Packet Formats
@@ -389,9 +389,9 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 28 January 2024                [Page 7]
+Mastorakis, et al.       Expires 4 February 2024                [Page 7]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -445,9 +445,9 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 28 January 2024                [Page 8]
+Mastorakis, et al.       Expires 4 February 2024                [Page 8]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -501,9 +501,9 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 28 January 2024                [Page 9]
+Mastorakis, et al.       Expires 4 February 2024                [Page 9]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -557,9 +557,9 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 28 January 2024               [Page 10]
+Mastorakis, et al.       Expires 4 February 2024               [Page 10]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
                     Figure 6: Echo Reply Message Format
@@ -613,9 +613,9 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 28 January 2024               [Page 11]
+Mastorakis, et al.       Expires 4 February 2024               [Page 11]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
                   Figure 8: Echo Request NDN Packet Format
@@ -669,9 +669,9 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 28 January 2024               [Page 12]
+Mastorakis, et al.       Expires 4 February 2024               [Page 12]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
    The content of an echo reply consists of the following 2 TLVs:
@@ -725,9 +725,9 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 28 January 2024               [Page 13]
+Mastorakis, et al.       Expires 4 February 2024               [Page 13]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
    If none of the conditions to reply to the echo request are met, the
@@ -781,9 +781,9 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 28 January 2024               [Page 14]
+Mastorakis, et al.       Expires 4 February 2024               [Page 14]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
 ------------------------------------------------------------------------
@@ -837,9 +837,9 @@ Reply  +------+       | PIT |  (update path label)                Reply
 
 
 
-Mastorakis, et al.       Expires 28 January 2024               [Page 15]
+Mastorakis, et al.       Expires 4 February 2024               [Page 15]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
    on which the request can be forwarded until it reaches a network
@@ -893,9 +893,9 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 28 January 2024               [Page 16]
+Mastorakis, et al.       Expires 4 February 2024               [Page 16]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
    Interest flooding attack amplification is possible in the case of the
@@ -934,25 +934,30 @@ Internet-Draft                  ICN Ping                       July 2023
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
    [RFC8569]  Mosko, M., Solis, I., and C. Wood, "Content-Centric
               Networking (CCNx) Semantics", RFC 8569,
               DOI 10.17487/RFC8569, July 2019,
               <https://www.rfc-editor.org/info/rfc8569>.
 
+
+
+
+
+
+
+Mastorakis, et al.       Expires 4 February 2024               [Page 17]
+
+Internet-Draft                  ICN Ping                     August 2023
+
+
    [RFC8609]  Mosko, M., Solis, I., and C. Wood, "Content-Centric
               Networking (CCNx) Messages in TLV Format", RFC 8609,
               DOI 10.17487/RFC8609, July 2019,
               <https://www.rfc-editor.org/info/rfc8609>.
-
-
-
-
-
-
-Mastorakis, et al.       Expires 28 January 2024               [Page 17]
-
-Internet-Draft                  ICN Ping                       July 2023
-
 
    [RFC8793]  Wissingh, B., Wood, C., Afanasyev, A., Zhang, L., Oran,
               D., and C. Tschudin, "Information-Centric Networking
@@ -997,18 +1002,16 @@ Internet-Draft                  ICN Ping                       July 2023
               Networks", RFC 9344, DOI 10.17487/RFC9344, February 2023,
               <https://www.rfc-editor.org/info/rfc9344>.
 
+
+
+
+Mastorakis, et al.       Expires 4 February 2024               [Page 18]
+
+Internet-Draft                  ICN Ping                     August 2023
+
+
    [SNAMP]    Afanasyev, A. and , "SNAMP: Secure namespace mapping to
               scale NDN forwarding", 2015.
-
-
-
-
-
-
-Mastorakis, et al.       Expires 28 January 2024               [Page 18]
-
-Internet-Draft                  ICN Ping                       July 2023
-
 
 Appendix A.  Ping Client Application (Consumer) Operation
 
@@ -1058,12 +1061,9 @@ Authors' Addresses
 
 
 
-
-
-
-Mastorakis, et al.       Expires 28 January 2024               [Page 19]
+Mastorakis, et al.       Expires 4 February 2024               [Page 19]
 
-Internet-Draft                  ICN Ping                       July 2023
+Internet-Draft                  ICN Ping                     August 2023
 
 
    Spyridon Mastorakis
@@ -1117,4 +1117,4 @@ Internet-Draft                  ICN Ping                       July 2023
 
 
 
-Mastorakis, et al.       Expires 28 January 2024               [Page 20]
+Mastorakis, et al.       Expires 4 February 2024               [Page 20]
